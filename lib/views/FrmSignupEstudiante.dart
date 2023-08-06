@@ -1,6 +1,5 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:pasantapp/services/EstudiantesService.dart';
 import 'package:pasantapp/utils/ImageSignUp.dart';
 import 'package:provider/provider.dart';
@@ -8,13 +7,13 @@ import 'dart:io';
 
 class SignupEstudiante extends StatefulWidget {
   static const routeName = '/signup-screen-students';
-  File? image;
+
   @override
   _SignupEstudianteState createState() => _SignupEstudianteState();
 }
 
 class _SignupEstudianteState extends State<SignupEstudiante> {
-  static const routeName = '/signup-screen-studens';
+  File? image;
 
   final nombresController = TextEditingController();
   final apellidosController = TextEditingController();
@@ -24,16 +23,6 @@ class _SignupEstudianteState extends State<SignupEstudiante> {
   final passwordController = TextEditingController();
   final imageController = TextEditingController();
   final nacimientoController = TextEditingController();
-
-  void _showImageSelectionDialog() async {
-    File? selectedImage = await ImageSignUp().selectImage(1); // Llamada al método selectImage con op 2 para seleccionar de la galería
-
-    if (selectedImage != null) {
-      setState(() {
-        widget.image = selectedImage;
-      });
-    }
-  }
 
   Widget signUpWith(IconData icon) {
     return Expanded(
@@ -139,13 +128,16 @@ class _SignupEstudianteState extends State<SignupEstudiante> {
                             // Para replicar exactamente, elimina el padding.
                             padding: const EdgeInsets.only(top: 5, bottom: 5),
                             child: ElevatedButton(
-                              onPressed: () {
-                                // -------------------- Llamamos al metodo de ImageSignup ----
-                                ImageSignUp(updateState: () {
+                              onPressed: () async {
+                                ImageSignUp imageSignUp = ImageSignUp();
+                                File? selectedImage =
+                                    await imageSignUp.mostrarDialogo(context);
+
+                                if (selectedImage != null) {
                                   setState(() {
-                                    // Actualizar el estado del widget que contiene ImageSignUp
+                                    image = selectedImage;
                                   });
-                                }).opciones(context);
+                                }
                               },
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
@@ -166,8 +158,12 @@ class _SignupEstudianteState extends State<SignupEstudiante> {
                           const SizedBox(
                             height: 30,
                           ),
-                          // ignore: unnecessary_null_comparison
-                          widget.image == null ? const Center() : Image.file(widget.image!),
+                          Container(
+                            // Mostrar la imagen seleccionada debajo del botón
+                            child: image == null
+                                ? const Center()
+                                : Image.file(image!),
+                          ),
                           const Divider(thickness: 0, color: Colors.white),
                           Container(
                             height: 60,
