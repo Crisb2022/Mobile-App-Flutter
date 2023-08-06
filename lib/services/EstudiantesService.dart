@@ -1,5 +1,5 @@
-// ignore: file_names
-import 'package:flutter/foundation.dart';
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -26,13 +26,12 @@ class EstudiantesServices with ChangeNotifier {
     try {
       // var urlCrisuni = 'http://10.119.204.196:7001/estudiantes';
       //  var urlCasa = 'http://192.168.100.240:7001/estudiantes';
-      final url = Uri.parse('http://10.119.204.196:7001/estudiantes');
+      final url = Uri.parse('http://192.168.100.240:7001/estudiantes');
       var response = await http.post(url,
           headers: {"Content-Type": "application/json"},
           body: jsonEncode(json));
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (ctx) => const FrmBottomMenuBar()));
-      print(jsonDecode(response.body));
     } catch (e) {
       print(e);
     }

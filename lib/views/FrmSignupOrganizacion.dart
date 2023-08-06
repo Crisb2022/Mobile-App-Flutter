@@ -128,10 +128,8 @@ class SignupOrganizacion extends StatelessWidget {
                                         correoController.text,
                                         direccionController.text,
                                         usuarioController.text,
-                                        passwordController.text);
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (ctx) =>
-                                        const FrmBottomMenuBar()));
+                                        passwordController.text,
+                                        context);
                               },
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(

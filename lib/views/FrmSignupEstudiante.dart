@@ -1,11 +1,20 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pasantapp/services/EstudiantesService.dart';
+import 'package:pasantapp/utils/ImageSignUp.dart';
 import 'package:provider/provider.dart';
+import 'dart:io';
 
-// ignore: must_be_immutable
-class SignupEstudiante extends StatelessWidget {
-  static const routeName = '/signup-screen';
+class SignupEstudiante extends StatefulWidget {
+  static const routeName = '/signup-screen-students';
+  File? image;
+  @override
+  _SignupEstudianteState createState() => _SignupEstudianteState();
+}
+
+class _SignupEstudianteState extends State<SignupEstudiante> {
+  static const routeName = '/signup-screen-studens';
 
   final nombresController = TextEditingController();
   final apellidosController = TextEditingController();
@@ -16,8 +25,15 @@ class SignupEstudiante extends StatelessWidget {
   final imageController = TextEditingController();
   final nacimientoController = TextEditingController();
 
-  SignupEstudiante
-({super.key});
+  void _showImageSelectionDialog() async {
+    File? selectedImage = await ImageSignUp().selectImage(1); // Llamada al método selectImage con op 2 para seleccionar de la galería
+
+    if (selectedImage != null) {
+      setState(() {
+        widget.image = selectedImage;
+      });
+    }
+  }
 
   Widget signUpWith(IconData icon) {
     return Expanded(
@@ -118,23 +134,61 @@ class SignupEstudiante extends StatelessWidget {
                           userInput(passwordController, 'Password',
                               TextInputType.text),
                           Container(
+                            // ----------------Camara-----------------
+                            height: 60,
+                            // Para replicar exactamente, elimina el padding.
+                            padding: const EdgeInsets.only(top: 5, bottom: 5),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                // -------------------- Llamamos al metodo de ImageSignup ----
+                                ImageSignUp(updateState: () {
+                                  setState(() {
+                                    // Actualizar el estado del widget que contiene ImageSignUp
+                                  });
+                                }).opciones(context);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25)),
+                                backgroundColor:
+                                    const Color.fromARGB(255, 142, 203, 214),
+                              ),
+                              child: const Text(
+                                'Foto de perfil',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          // ignore: unnecessary_null_comparison
+                          widget.image == null ? const Center() : Image.file(widget.image!),
+                          const Divider(thickness: 0, color: Colors.white),
+                          Container(
                             height: 60,
                             // Para replicar exactamente, elimina el padding.
                             padding: const EdgeInsets.only(
                                 top: 5, left: 70, right: 70),
                             child: ElevatedButton(
                               onPressed: () {
-                              Provider.of<EstudiantesServices>(context, listen: false)
-                                  .signup(
-                                      nombresController.text,
-                                      apellidosController.text,
-                                      cedulaController.text,
-                                      correoController.text,
-                                      usuarioController.text,
-                                      passwordController.text,
-                                      "",
-                                      nacimientoController.text, context);
-                            },
+                                Provider.of<EstudiantesServices>(context,
+                                        listen: false)
+                                    .signup(
+                                        nombresController.text,
+                                        apellidosController.text,
+                                        cedulaController.text,
+                                        correoController.text,
+                                        usuarioController.text,
+                                        passwordController.text,
+                                        "${cedulaController.text}.jpg",
+                                        nacimientoController.text,
+                                        context);
+                              },
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(25)),
@@ -150,8 +204,6 @@ class SignupEstudiante extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 100),
-                          const SizedBox(height: 20),
                           const Divider(thickness: 0, color: Colors.white),
                         ],
                       ),

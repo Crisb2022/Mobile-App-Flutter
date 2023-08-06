@@ -1,0 +1,219 @@
+[
+  {
+    "nombre": "HTML",
+    "descripcion": "Lenguaje de marcado utilizado para crear la estructura y contenido de las páginas web."
+  },
+  {
+    "nombre": "CSS",
+    "descripcion": "Lenguaje de estilo utilizado para dar formato y diseño a las páginas web."
+  },
+  {
+    "nombre": "JavaScript",
+    "descripcion": "Lenguaje de programación utilizado para crear interacción y funcionalidad en el lado del cliente."
+  },
+  {
+    "nombre": "Python",
+    "descripcion": "Lenguaje versátil y fácil de aprender utilizado para el desarrollo web con frameworks como Django y Flask."
+  },
+  {
+    "nombre": "Ruby",
+    "descripcion": "Lenguaje utilizado en el desarrollo web con el framework Ruby on Rails, conocido por su enfoque en la convención sobre configuración."
+  },
+  {
+    "nombre": "PHP",
+    "descripcion": "Lenguaje de scripting ampliamente utilizado en el desarrollo web backend y con una gran cantidad de frameworks disponibles."
+  },
+  {
+    "nombre": "Node.js",
+    "descripcion": "Entorno de ejecución de JavaScript en el servidor, que permite construir aplicaciones web escalables y de alto rendimiento."
+  },
+  {
+    "nombre": "React",
+    "descripcion": "Biblioteca de JavaScript creada por Facebook para construir interfaces de usuario interactivas y reactivas."
+  },
+  {
+    "nombre": "Angular",
+    "descripcion": "Framework de JavaScript mantenido por Google, utilizado para desarrollar aplicaciones web complejas y dinámicas."
+  },
+  {
+    "nombre": "Vue.js",
+    "descripcion": "Framework progresivo de JavaScript que se enfoca en la creación de interfaces de usuario eficientes y reutilizables."
+  },
+  {
+    "nombre": "Express.js",
+    "descripcion": "Framework de Node.js utilizado para construir aplicaciones web y APIs de manera rápida y sencilla."
+  },
+  {
+    "nombre": "Ruby on Rails",
+    "descripcion": "Framework de desarrollo web en Ruby conocido por su enfoque en la productividad y la convención sobre configuración."
+  },
+  {
+    "nombre": "Django",
+    "descripcion": "Framework de desarrollo web en Python que promueve la eficiencia y el diseño limpio en la creación de aplicaciones."
+  },
+  {
+    "nombre": "Laravel",
+    "descripcion": "Framework de PHP que facilita la creación de aplicaciones web robustas con una sintaxis elegante y funcionalidades avanzadas."
+  },
+
+  {
+    "nombre": "Java",
+    "descripcion": "Lenguaje de programación orientado a objetos utilizado en una amplia gama de aplicaciones, desde desarrollo web hasta aplicaciones empresariales."
+  },
+  {
+    "nombre": "Kotlin",
+    "descripcion": "Lenguaje moderno que se ejecuta en la JVM y se ha convertido en una alternativa popular para el desarrollo de aplicaciones Android."
+  },
+  {
+    "nombre": "Scala",
+    "descripcion": "Lenguaje multiparadigma que se ejecuta en la JVM y combina programación orientada a objetos y funcionalidad."
+  },
+  {
+    "nombre": "Groovy",
+    "descripcion": "Lenguaje dinámico que se ejecuta en la JVM y se utiliza para simplificar tareas en aplicaciones Java y scripts."
+  },
+  {
+    "nombre": "Spring Framework",
+    "descripcion": "Framework de aplicación que se basa en Java y se utiliza para desarrollar aplicaciones empresariales y web de manera eficiente."
+  },
+  {
+    "nombre": "Hibernate",
+    "descripcion": "Framework de mapeo objeto-relacional en Java utilizado para simplificar la interacción con bases de datos relacionales."
+  },
+  {
+    "nombre": "Struts",
+    "descripcion": "Framework MVC en Java que se utiliza para crear aplicaciones web escalables y mantenibles."
+  },
+  {
+    "nombre": "JavaFX",
+    "descripcion": "Plataforma gráfica de Java utilizada para crear aplicaciones de escritorio con interfaces de usuario ricas."
+  },
+  {
+    "nombre": "Maven",
+    "descripcion": "Herramienta de gestión de proyectos utilizada principalmente para construir y administrar proyectos Java."
+  },
+  {
+    "nombre": "Gradle",
+    "descripcion": "Sistema de automatización de construcción que permite definir y personalizar procesos de compilación y construcción para varios lenguajes."
+  },
+  {
+    "nombre": "Ant",
+    "descripcion": "Herramienta de construcción similar a Maven, pero más flexible, utilizada para construir aplicaciones Java y otros proyectos."
+  },
+  {
+    "nombre": "npm (Node Package Manager)",
+    "descripcion": "Administrador de paquetes para el ecosistema de Node.js que permite instalar y administrar bibliotecas y dependencias de proyectos."
+  },
+  {
+    "nombre": "Yarn",
+    "descripcion": "Administrador de paquetes alternativo para proyectos de Node.js que ofrece mejoras en la velocidad y la eficiencia de descarga de paquetes."
+  },
+  {
+    "nombre": "Webpack",
+    "descripcion": "Empaquetador de módulos utilizado para el desarrollo de aplicaciones web, que permite agrupar, minificar y optimizar recursos."
+  },
+  {
+    "nombre": "Babel",
+    "descripcion": "Compilador de JavaScript que permite usar características de versiones más recientes del lenguaje y convertirlas en versiones compatibles con navegadores antiguos."
+  },
+  {
+    "nombre": "Git",
+    "descripcion": "Sistema de control de versiones distribuido utilizado para el seguimiento de cambios en el código fuente y la colaboración en equipos de desarrollo."
+  },
+  {
+    "nombre": "Docker",
+    "descripcion": "Plataforma de contenedorización que permite empaquetar, distribuir y ejecutar aplicaciones en contenedores aislados."
+  },
+  {
+    "nombre": "Docker Compose",
+    "descripcion": "Herramienta para definir y ejecutar aplicaciones Docker compuestas por varios contenedores que trabajan juntos."
+  },
+  {
+    "nombre": "Kubernetes",
+    "descripcion": "Sistema de orquestación de contenedores que automatiza la implementación, escalado y gestión de aplicaciones en contenedores."
+  },
+  {
+    "nombre": "Jenkins",
+    "descripcion": "Herramienta de integración continua que permite automatizar el proceso de construcción, pruebas y despliegue de aplicaciones."
+  },
+  {
+    "nombre": "Travis CI",
+    "descripcion": "Servicio de integración continua basado en la nube que automatiza la construcción y las pruebas de software alojado en repositorios de GitHub."
+  },
+  {
+    "nombre": "CircleCI",
+    "descripcion": "Plataforma de automatización de construcción y pruebas que integra con repositorios y servicios populares para el desarrollo."
+  },
+  {
+    "nombre": "Ansible",
+    "descripcion": "Herramienta de automatización que permite configurar y administrar servidores y recursos de manera declarativa."
+  },
+  {
+    "nombre": "Terraform",
+    "descripcion": "Herramienta para la creación y gestión de infraestructura como código, que permite definir recursos en la nube de manera declarativa."
+  },
+  {
+    "nombre": "MySQL",
+    "descripcion": "Sistema de gestión de bases de datos relacional de código abierto ampliamente utilizado para aplicaciones web y empresariales."
+  },
+  {
+    "nombre": "PostgreSQL",
+    "descripcion": "Sistema de gestión de bases de datos relacional de código abierto conocido por su robustez y soporte de características avanzadas."
+  },
+  {
+    "nombre": "MongoDB",
+    "descripcion": "Base de datos NoSQL orientada a documentos que es escalable y flexible, utilizada en aplicaciones modernas."
+  },
+  {
+    "nombre": "Redis",
+    "descripcion": "Almacén de estructuras de datos en memoria utilizado como base de datos en caché, almacenamiento en caché y sistema de mensajería."
+  },
+  {
+    "nombre": "SQLite",
+    "descripcion": "Base de datos relacional de servidor embebido que no requiere configuración de servidor y se utiliza en aplicaciones locales."
+  },
+  {
+    "nombre": "Oracle",
+    "descripcion": "Sistema de gestión de bases de datos relacional líder en la industria, utilizado en aplicaciones empresariales de gran envergadura."
+  },
+  {
+    "nombre": "Microsoft SQL Server",
+    "descripcion": "Sistema de gestión de bases de datos relacional desarrollado por Microsoft, utilizado en aplicaciones empresariales y sitios web."
+  },
+  {
+    "nombre": "Cassandra",
+    "descripcion": "Base de datos distribuida NoSQL que se enfoca en la escalabilidad y la alta disponibilidad en entornos distribuidos."
+  },
+  {
+    "nombre": "Android",
+    "descripcion": "Plataforma móvil desarrollada por Google, utilizada para crear aplicaciones nativas para dispositivos Android."
+  },
+  {
+    "nombre": "iOS",
+    "descripcion": "Plataforma móvil desarrollada por Apple, utilizada para crear aplicaciones nativas para dispositivos iPhone, iPad y iPod Touch."
+  },
+  {
+    "nombre": "React Native",
+    "descripcion": "Framework de desarrollo móvil que utiliza JavaScript y React para construir aplicaciones móviles multiplataforma."
+  },
+  {
+    "nombre": "Flutter",
+    "descripcion": "SDK de código abierto desarrollado por Google para crear aplicaciones móviles nativas y de alta calidad con un solo código base."
+  },
+  {
+    "nombre": "Xamarin",
+    "descripcion": "Plataforma de desarrollo móvil de Microsoft que permite crear aplicaciones móviles multiplataforma utilizando C# y .NET."
+  },
+  {
+    "nombre": "Ionic",
+    "descripcion": "Framework de desarrollo de aplicaciones móviles y web utilizando tecnologías web como HTML, CSS y JavaScript."
+  },
+  {
+    "nombre": "PhoneGap",
+    "descripcion": "Plataforma para crear aplicaciones móviles utilizando tecnologías web como HTML, CSS y JavaScript, empaquetadas como aplicaciones nativas."
+  },
+  {
+    "nombre": "NativeScript",
+    "descripcion": "Framework que permite crear aplicaciones móviles nativas utilizando tecnologías web como JavaScript, Angular y Vue.js."
+  }
+]
