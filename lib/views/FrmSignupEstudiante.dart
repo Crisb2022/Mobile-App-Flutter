@@ -184,6 +184,7 @@ class _SignupEstudianteState extends State<SignupEstudiante> {
                                         "${cedulaController.text}.jpg",
                                         nacimientoController.text,
                                         context);
+                                        ImageSignUp().subirImagen(image!, cedulaController.text);
                               },
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(

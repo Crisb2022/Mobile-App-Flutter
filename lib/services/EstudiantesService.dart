@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:pasantapp/db/Estudiantes.dart';
 import 'package:pasantapp/views/FrmBottomMenuBar.dart';
+import 'package:pasantapp/views/FrmRegistroPerfilEstudiante.dart';
 
 class EstudiantesServices with ChangeNotifier {
   String message = '';
@@ -31,7 +32,7 @@ class EstudiantesServices with ChangeNotifier {
           headers: {"Content-Type": "application/json"},
           body: jsonEncode(json));
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (ctx) => const FrmBottomMenuBar()));
+          .push(MaterialPageRoute(builder: (ctx) => FrmPerfilEstudiant()));
     } catch (e) {
       print(e);
     }

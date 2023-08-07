@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pasantapp/views/FrmLoginScreen.dart';
+import 'package:pasantapp/views/FrmRegistroPerfilEstudiante.dart';
 import 'package:pasantapp/views/FrmSelectionUser.dart';
 import 'package:pasantapp/views/FrmSignupOrganizacion.dart';
 import 'package:provider/provider.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
           SignupOrganizacion.routeName: (context) =>SignupOrganizacion(),
           LoginScreen.routeName: (context) => LoginScreen(),
           FrmSelectionUser.routeName: (context) => const FrmSelectionUser(),
+          FrmPerfilEstudiant.routeName: (context) => FrmPerfilEstudiant(),
         },
       ),
     );

@@ -1,13 +1,16 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 class ImageSignUp {
-  File? imagen;
+
   final picker = ImagePicker();
   final VoidCallback? updateState;
 
   ImageSignUp({this.updateState});
+
+  Dio dio = Dio();
 
   Future<File?> mostrarDialogo(BuildContext context) async {
     File? selectedImage;
@@ -23,6 +26,7 @@ class ImageSignUp {
                 InkWell(
                   onTap: () async {
                     selectedImage = await selectImage(1);
+                    
                     Navigator.of(context).pop();
                   },
                   child: Container(
@@ -94,7 +98,6 @@ class ImageSignUp {
         );
       },
     );
-
     return selectedImage;
   }
 
@@ -113,4 +116,28 @@ class ImageSignUp {
 
     return null;
   }
+
+  Future<void> subirImagen(File? imagen, String cedula)async{
+    try {
+      String fileName = imagen!.path.split('/').last;
+      // ignore: unnecessary_new
+      FormData formData = new FormData.fromMap({
+        'idImagen': cedula,
+        'file': await MultipartFile.fromFile(
+          imagen.path, filename: fileName
+        )
+      });
+      await dio.post('http://192.168.100.240:7001/estudiantes/image',
+      data: formData).then((value) {
+        if (value.toString() == '1') {
+          print('ta posi papi');
+        } else {
+          print('Algo salio mal');
+        }
+      });
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
 }
