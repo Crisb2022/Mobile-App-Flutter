@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:pasantapp/db/Organizacion.dart';
-import 'package:pasantapp/views/FrmBottomMenuBar.dart';
+import 'package:pasantapp/views/menu/FrmMenu.dart';
 
 class OrganizacionServices with ChangeNotifier {
   String message = '';

@@ -1,7 +1,7 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:pasantapp/views/FrmPrincipalFeed.dart';
-import 'package:pasantapp/views/FrmProfile.dart';
+import 'package:pasantapp/views/feed/FrmFeedPasantia.dart';
+import 'package:pasantapp/views/feed/FrmProfile.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class FrmBottomMenuBar extends StatefulWidget {
@@ -45,13 +45,13 @@ final _navBarItems = [
     selectedColor: Colors.purple,
   ),
   SalomonBottomBarItem(
-    icon: const Icon(Icons.favorite_border),
-    title: const Text("Likes"),
+    icon: const Icon(Icons.message),
+    title: const Text("OpenAI"),
     selectedColor: Colors.pink,
   ),
   SalomonBottomBarItem(
-    icon: const Icon(Icons.search),
-    title: const Text("Search"),
+    icon: const Icon(Icons.wallet_travel_outlined),
+    title: const Text("Scraping"),
     selectedColor: Colors.orange,
   ),
   SalomonBottomBarItem(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pasantapp/views/FrmSelectionUser.dart';
-import 'FrmLoginScreen.dart';
-
+import 'package:pasantapp/views/menu/FrmMenu.dart';
+import 'package:pasantapp/views/registro/FrmSeleccion.dart';
 class WelcomeScreen extends StatelessWidget {
   static const routeName = '/welcome-screen';
   @override
@@ -12,8 +11,7 @@ class WelcomeScreen extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage(
-                      'assets/images/startApp.jpg'),
+                  image: AssetImage('assets/images/startApp.jpg'),
                   fit: BoxFit.fill),
             ),
           ),
@@ -54,8 +52,10 @@ class WelcomeScreen extends StatelessWidget {
                       padding:
                           const EdgeInsets.only(top: 25, left: 24, right: 24),
                       child: ElevatedButton(
-                        onPressed: () => Navigator.of(context)
-                            .pushNamed(LoginScreen.routeName),
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (ctx) => const FrmBottomMenuBar()));
+                        },
                         style: ElevatedButton.styleFrom(
                           elevation: 0,
                           shape: RoundedRectangleBorder(

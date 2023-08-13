@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pasantapp/views/FrmSignupEstudiante.dart';
-import 'package:pasantapp/views/FrmSignupOrganizacion.dart';
+import 'package:pasantapp/views/registro/FrmRegistroEST.dart';
+import 'package:pasantapp/views/registro/FrmRegistroORG.dart';
 
 class FrmSelectionUser extends StatelessWidget {
   static const routeName = '/frm-selection';

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pasantapp/views/FrmLoginScreen.dart';
-import 'package:pasantapp/views/FrmRegistroPerfilEstudiante.dart';
-import 'package:pasantapp/views/FrmSelectionUser.dart';
-import 'package:pasantapp/views/FrmSignupOrganizacion.dart';
+import 'package:pasantapp/views/menu/FrmIntroduccion.dart';
+import 'package:pasantapp/views/registro/FrmLoginScreen.dart';
+import 'package:pasantapp/views/registro/FrmTecnologias.dart';
+import 'package:pasantapp/views/registro/FrmSeleccion.dart';
+import 'package:pasantapp/views/registro/FrmRegistroORG.dart';
 import 'package:provider/provider.dart';
-import 'views/FrmSignupEstudiante.dart';
+import 'views/registro/FrmRegistroEST.dart';
 import 'views/FrmWelcomeApp.dart';
 import 'services/EstudiantesService.dart';
 
@@ -28,18 +29,35 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: WelcomeScreen(),
+        initialRoute: FrmIntroduccion.routeName, // Agrega esta línea
         routes: {
           WelcomeScreen.routeName: (context) => WelcomeScreen(),
           SignupEstudiante.routeName: (context) => SignupEstudiante(),
-          SignupOrganizacion.routeName: (context) =>SignupOrganizacion(),
+          SignupOrganizacion.routeName: (context) => SignupOrganizacion(),
           LoginScreen.routeName: (context) => LoginScreen(),
           FrmSelectionUser.routeName: (context) => const FrmSelectionUser(),
-          FrmPerfilEstudiant.routeName: (context) => FrmPerfilEstudiant(),
-        },
+          FrmPerfilEstudiantes.routeName: (context) => FrmPerfilEstudiantes(),
+          FrmIntroduccion.routeName: (context) => FrmIntroduccion(
+            pages: [
+              // Aquí debes definir las páginas para la introducción
+              OnboardingPageModel(
+                title: "Título 1",
+                description: "Descripción 1",
+                image: "assets/images/bd.webp",
+                bgColor: Colors.blue,
+                textColor: Colors.white,
+              ),
+              OnboardingPageModel(
+                title: "Título 2",
+                description: "Descripción 2",
+                image: "assets/images/analista.webp",
+                bgColor: Colors.red,
+                textColor: Colors.white,
+              ),
+            ],
+          ),
+       },
       ),
     );
   }
 }
-
-
