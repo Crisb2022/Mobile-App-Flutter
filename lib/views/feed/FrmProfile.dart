@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatelessWidget {
   static const routeName = '/feed-profile-screen';
@@ -22,7 +23,7 @@ class Profile extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    "Richie Lorie",
+                    "Cris",
                     style: Theme.of(context)
                         .textTheme
                         .headline6
@@ -51,8 +52,26 @@ class Profile extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 16),
+          FutureBuilder<SharedPreferences>(
+            future: SharedPreferences.getInstance(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return CircularProgressIndicator(); // Puedes mostrar un indicador de carga
+              }
+
+              String username = snapshot.data?.getString('username') ?? '';
+              String userId = snapshot.data?.getString('userId') ?? '';
+
+              return Text(
+                "Usuario: $username\nID: $userId",
+                style: TextStyle(fontSize: 16),
+              );
+            },
+          ),
+                  const SizedBox(height: 16),
                   const _ProfileInfoRow()
                 ],
+                
               ),
             ),
           ),

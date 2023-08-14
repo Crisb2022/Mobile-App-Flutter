@@ -3,8 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:pasantapp/views/menu/FrmIntroduccion.dart';
 import 'package:pasantapp/views/registro/FrmLoginScreen.dart';
 import 'package:pasantapp/views/registro/FrmTecnologias.dart';
-import 'package:pasantapp/views/registro/FrmSeleccion.dart';
-import 'package:pasantapp/views/registro/FrmRegistroORG.dart';
 import 'package:provider/provider.dart';
 import 'views/registro/FrmRegistroEST.dart';
 import 'views/FrmWelcomeApp.dart';
@@ -33,9 +31,7 @@ class MyApp extends StatelessWidget {
         routes: {
           WelcomeScreen.routeName: (context) => WelcomeScreen(),
           SignupEstudiante.routeName: (context) => SignupEstudiante(),
-          SignupOrganizacion.routeName: (context) => SignupOrganizacion(),
           LoginScreen.routeName: (context) => LoginScreen(),
-          FrmSelectionUser.routeName: (context) => const FrmSelectionUser(),
           FrmPerfilEstudiantes.routeName: (context) => FrmPerfilEstudiantes(),
           FrmIntroduccion.routeName: (context) => FrmIntroduccion(
             pages: [

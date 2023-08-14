@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pasantapp/views/menu/FrmMenu.dart';
-import 'package:pasantapp/views/registro/FrmSeleccion.dart';
+import 'package:pasantapp/views/registro/FrmLoginScreen.dart';
+import 'package:pasantapp/views/registro/FrmRegistroEST.dart';
 class WelcomeScreen extends StatelessWidget {
   static const routeName = '/welcome-screen';
   @override
@@ -54,7 +54,7 @@ class WelcomeScreen extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (ctx) => const FrmBottomMenuBar()));
+                              builder: (ctx) => LoginScreen()));
                         },
                         style: ElevatedButton.styleFrom(
                           elevation: 0,
@@ -80,7 +80,7 @@ class WelcomeScreen extends StatelessWidget {
                           const EdgeInsets.only(top: 25, left: 24, right: 24),
                       child: ElevatedButton(
                         onPressed: () => Navigator.of(context)
-                            .pushNamed(FrmSelectionUser.routeName),
+                            .pushNamed(SignupEstudiante.routeName),
                         style: ElevatedButton.styleFrom(
                           elevation: 0,
                           shape: RoundedRectangleBorder(

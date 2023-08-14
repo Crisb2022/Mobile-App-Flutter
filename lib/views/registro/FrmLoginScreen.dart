@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pasantapp/services/EstudiantesService.dart';
 import 'package:pasantapp/views/menu/FrmMenu.dart';
+import 'package:pasantapp/views/registro/FrmRegistroEST.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   static const routeName = '/login-screen';
@@ -9,7 +12,7 @@ class LoginScreen extends StatelessWidget {
 
   LoginScreen({super.key});
 
-  Widget login(IconData icon) {
+  Widget login(IconData icon, context) {
     return Container(
       height: 50,
       width: 115,
@@ -21,7 +24,10 @@ class LoginScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(icon, size: 24),
-          TextButton(onPressed: () {}, child: Text('Login')),
+          TextButton(onPressed: () {
+            Navigator.of(context).push(
+            MaterialPageRoute(builder: (ctx) => SignupEstudiante()));
+          }, child: const Text('Registrate')),
         ],
       ),
     );
@@ -62,9 +68,9 @@ class LoginScreen extends StatelessWidget {
         decoration: const BoxDecoration(
           image: DecorationImage(
             alignment: Alignment.topCenter,
-            fit: BoxFit.fill,
-            image: NetworkImage(
-              'https://images.unsplash.com/photo-1557683316-973673baf926?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE4fHx8ZW58MHx8fHw%3D&w=1000&q=80',
+            fit: BoxFit.contain,
+            image: AssetImage(
+              'assets/images/login.webp',
             ),
           ),
         ),
@@ -88,7 +94,7 @@ class LoginScreen extends StatelessWidget {
                   children: [
                     const SizedBox(height: 45),
                     userInput(
-                        emailController, 'Email', TextInputType.emailAddress),
+                        emailController, 'Email / Correo', TextInputType.emailAddress),
                     userInput(passwordController, 'Password',
                         TextInputType.visiblePassword),
                     Container(
@@ -98,13 +104,9 @@ class LoginScreen extends StatelessWidget {
                           const EdgeInsets.only(top: 5, left: 70, right: 70),
                       child: ElevatedButton(
                         onPressed: () {
-                          print(emailController);
-                          print(passwordController);
-                          //Provider.of<EstudiantesServices>(context, listen: false)
-                          //    .login(emailController.text,
-                          //        passwordController.text);
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (ctx) => const FrmBottomMenuBar()));
+                          Provider.of<EstudiantesServices>(context, listen: false)
+                              .login(context, emailController.text,
+                                  passwordController.text);
                         },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
@@ -112,7 +114,7 @@ class LoginScreen extends StatelessWidget {
                           backgroundColor: Colors.indigo.shade800,
                         ),
                         child: const Text(
-                          'Login',
+                          'Ingresa',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w700,
@@ -123,16 +125,14 @@ class LoginScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
                     const Center(
-                      child: Text('Forgot password ?'),
+                      child: Text('Sin cuenta ?'),
                     ),
-                    const SizedBox(height: 20),
                     Padding(
-                      padding: const EdgeInsets.only(top: 25.0),
+                      padding: const EdgeInsets.only(top: 10.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          login(Icons.add),
-                          login(Icons.book_online),
+                          login(Icons.add_reaction_sharp, context),
                         ],
                       ),
                     ),

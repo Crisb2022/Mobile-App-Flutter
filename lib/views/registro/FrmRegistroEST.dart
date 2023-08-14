@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pasantapp/services/EstudiantesService.dart';
 import 'package:pasantapp/utils/ImageSignUp.dart';
 import 'package:provider/provider.dart';
+
 import 'dart:io';
 
 class SignupEstudiante extends StatefulWidget {
@@ -79,9 +80,9 @@ class _SignupEstudianteState extends State<SignupEstudiante> {
         decoration: const BoxDecoration(
           image: DecorationImage(
             alignment: Alignment.topCenter,
-            fit: BoxFit.fill,
+            fit: BoxFit.contain,
             image: AssetImage(
-              'assets/images/workSign.png',
+              'assets/images/login.webp',
             ),
           ),
         ),
@@ -97,17 +98,31 @@ class _SignupEstudianteState extends State<SignupEstudiante> {
                     decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15),
-                        topRight: Radius.circular(15),
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30),
                       ),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(15.0),
+                      padding: const EdgeInsets.all(20.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          const SizedBox(height: 50),
+                          const SizedBox(height: 30),
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Registro de datos',
+                                style: TextStyle(
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.brown
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 25),
                           userInput(
                               nombresController, 'Nombre', TextInputType.text),
                           userInput(apellidosController, 'Apellido',

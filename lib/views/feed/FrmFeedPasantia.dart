@@ -3,8 +3,6 @@ import 'package:http/http.dart' as http;
 import 'package:pasantapp/views/feed/FrnInfoPasantia.dart';
 import 'dart:convert';
 
-import 'package:pasantapp/views/registro/FrmTecnologias.dart';
-
 class FeedHome extends StatefulWidget {
   static const routeName = '/feed-one-screen';
 
@@ -14,6 +12,7 @@ class FeedHome extends StatefulWidget {
 
 class _FeedHomeState extends State<FeedHome> {
   List<Map<String, dynamic>> pasantias = [];
+  String searchQuery = '';
 
   Future<void> getPasantias() async {
     var urlCasa = 'http://192.168.100.240:7001/estudiantes/feed';
@@ -35,79 +34,134 @@ class _FeedHomeState extends State<FeedHome> {
 
   @override
   Widget build(BuildContext context) {
+    List<Map<String, dynamic>> filteredPasantias = pasantias
+        .where((pasantia) => pasantia['imagen']
+            .toLowerCase()
+            .contains(searchQuery.toLowerCase()))
+        .toList();
     return Scaffold(
       appBar: AppBar(
-        // Barra superior oculta
-        backgroundColor: const Color.fromARGB(255, 79, 153, 214),
-        title: const Text('Cargando datos'),
+        backgroundColor: Color.fromARGB(188, 141, 43, 158), // Cambia el color de fondo
         elevation: 5,
+        centerTitle: true, // Centra el título en la AppBar
+        title: const Text(
+          'PassApp',
+          style: TextStyle(
+            fontSize: 24, // Tamaño de fuente del título
+            fontWeight: FontWeight.bold, // Peso de fuente del título
+          ),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.search,
+              size: 28, // Tamaño del ícono de búsqueda
+            ),
+            onPressed: () async {
+              final String? selected = await showSearch(
+                context: context,
+                delegate: CustomSearchDelegate(filteredPasantias),
+              );
+
+              if (selected != null && selected != searchQuery) {
+                setState(() {
+                  searchQuery = selected;
+                });
+              }
+            },
+          ),
+        ],
       ),
       body: Center(
         child: Container(
           constraints: const BoxConstraints(maxWidth: 400),
           child: ListView.builder(
-            itemCount: pasantias.length,
+            itemCount: filteredPasantias.length,
             itemBuilder: (BuildContext context, int index) {
-              final pasantia = pasantias[index];
+              final pasantia = filteredPasantias[index];
               return GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (ctx) => FrmInfoPasantia(pasantia: pasantia,)));
+                    builder: (ctx) => FrmInfoPasantia(
+                      pasantia: pasantia,
+                    ),
+                  ));
                 },
                 child: Container(
-                  height: 136,
+                  height: 150,
                   margin:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 8.0),
                   decoration: BoxDecoration(
-                      border: Border.all(color: const Color(0xFFE0E0E0)),
-                      borderRadius: BorderRadius.circular(8.0)),
+                    border: Border.all(color: const Color(0xFFE0E0E0)),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                   padding: const EdgeInsets.all(8),
                   child: Row(
                     children: [
                       Expanded(
-                          child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            pasantia['empresa'] ?? '',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                              "${pasantia['imagen']} · ${pasantia['horas_requeridas']}",
-                              style: Theme.of(context).textTheme.bodyLarge),
-                          const SizedBox(height: 8),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icons.bookmark_border_rounded,
-                              Icons.person
-                            ].map((e) {
-                              return InkWell(
-                                onTap: () {},
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 8.0),
-                                  child: Icon(e, size: 16),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              pasantia['empresa'] ?? '',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 132, 97, 160),
+                                fontSize: 20,
+                              ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const SizedBox(height: 8),
+                            Row(
+                              children: [
+                                const Icon(Icons.person),
+                                const SizedBox(width: 8),
+                                Text(
+                                  "Cargo: ${pasantia['imagen']}",
+                                  style: Theme.of(context).textTheme.bodyLarge,
                                 ),
-                              );
-                            }).toList(),
-                          )
-                        ],
-                      )),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+                            Row(
+                              children: [
+                                const Icon(Icons.schedule),
+                                const SizedBox(width: 8),
+                                Text(
+                                  "Horario: ${pasantia['horas_requeridas']}",
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+                            Row(
+                              children: [
+                                const Icon(Icons.category),
+                                const SizedBox(width: 8),
+                                Text(
+                                  "Modalidad: ${pasantia['modalidad']}",
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
                       Container(
-                          width: 100,
-                          height: 100,
-                          decoration: BoxDecoration(
-                              color: Colors.grey,
-                              borderRadius: BorderRadius.circular(8.0),
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage(
-                                    "assets/images/${pasantia['imagen']}.webp"),
-                              ))),
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(8.0),
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage(
+                                "assets/images/${pasantia['imagen']}.webp"),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -116,6 +170,63 @@ class _FeedHomeState extends State<FeedHome> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class CustomSearchDelegate extends SearchDelegate<String> {
+  final List<Map<String, dynamic>> items;
+
+  CustomSearchDelegate(this.items);
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: Icon(Icons.clear),
+        onPressed: () {
+          query = '';
+        },
+      ),
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.arrow_back),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    // Implementar si es necesario
+    return Container();
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    final suggestionList = query.isEmpty
+        ? []
+        : items
+            .where((pasantia) =>
+                pasantia['imagen'].toLowerCase().contains(query.toLowerCase()))
+            .toList();
+
+    return ListView.builder(
+      itemCount: suggestionList.length,
+      itemBuilder: (BuildContext context, int index) {
+        final pasantia = suggestionList[index];
+        return ListTile(
+          title: Text(pasantia['imagen']),
+          onTap: () {
+            close(context, pasantia['imagen']);
+          },
+        );
+      },
     );
   }
 }
