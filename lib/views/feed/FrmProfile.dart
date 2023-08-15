@@ -1,17 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:pasantapp/views/registro/FrmLoginScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatelessWidget {
   static const routeName = '/feed-profile-screen';
   const Profile({Key? key}) : super(key: key);
 
+
+  void _cerrarSesion(BuildContext context) {
+    Navigator.popUntil(context, ModalRoute.withName('/'));
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (ctx) => LoginScreen()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.amber,
-        title: const  Text('Selecciona una categoria'),
+        title: const Text('Selecciona una categoría'),
         elevation: 5,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () => _cerrarSesion(context),
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -52,26 +66,25 @@ class Profile extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 16),
-          FutureBuilder<SharedPreferences>(
-            future: SharedPreferences.getInstance(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return CircularProgressIndicator(); // Puedes mostrar un indicador de carga
-              }
+                  FutureBuilder<SharedPreferences>(
+                    future: SharedPreferences.getInstance(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return CircularProgressIndicator(); // Puedes mostrar un indicador de carga
+                      }
 
-              String username = snapshot.data?.getString('username') ?? '';
-              String userId = snapshot.data?.getString('userId') ?? '';
+                      String username = snapshot.data?.getString('username') ?? '';
+                      String userId = snapshot.data?.getString('cedula') ?? '';
 
-              return Text(
-                "Usuario: $username\nID: $userId",
-                style: TextStyle(fontSize: 16),
-              );
-            },
-          ),
+                      return Text(
+                        "Usuario: $username\nID: $userId",
+                        style: TextStyle(fontSize: 20),
+                      );
+                    },
+                  ),
                   const SizedBox(height: 16),
                   const _ProfileInfoRow()
                 ],
-                
               ),
             ),
           ),

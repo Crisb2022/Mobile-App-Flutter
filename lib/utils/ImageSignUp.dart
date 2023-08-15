@@ -112,6 +112,8 @@ class ImageSignUp {
 
     if (pickedFile != null) {
       return File(pickedFile.path);
+    }else{
+      return File('/Aplicacion-PassApp/assets/images/cargando.gif');
     }
 
     return null;

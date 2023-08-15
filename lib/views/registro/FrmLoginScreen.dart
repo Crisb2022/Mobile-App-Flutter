@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pasantapp/services/EstudiantesService.dart';
-import 'package:pasantapp/views/menu/FrmMenu.dart';
 import 'package:pasantapp/views/registro/FrmRegistroEST.dart';
 import 'package:provider/provider.dart';
 

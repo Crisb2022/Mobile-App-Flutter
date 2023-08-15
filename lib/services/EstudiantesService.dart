@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:pasantapp/db/Estudiantes.dart';
 import 'package:pasantapp/views/menu/FrmMenu.dart';
 import 'package:pasantapp/views/registro/FrmLoginScreen.dart';
+import 'package:pasantapp/views/registro/FrmPerfil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -42,7 +43,7 @@ class EstudiantesServices with ChangeNotifier {
 
       // Navegar a la siguiente pantalla
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (ctx) => const FrmBottomMenuBar()));
+          .push(MaterialPageRoute(builder: (ctx) => FrmPerfil(cedula: cedula)));
 
       if (response.statusCode == 200 || response.statusCode == 204) {
         // Registro exitoso en la base de datos, proceder a guardar localmente
@@ -76,7 +77,7 @@ class EstudiantesServices with ChangeNotifier {
         Navigator.of(context).push(
             MaterialPageRoute(builder: (ctx) => const FrmBottomMenuBar()));
         // Guardar los datos del usuario en shared_preferences
-        await saveUserDataToSharedPreferences(username);
+        await saveUserDataToSharedPreferences(username, userInfo['cedula'].toString());
         return userInfo;
       } else if (response.statusCode == 204) {
         await widgetError(context, "Usuario o contraseña erroneos");
@@ -142,8 +143,9 @@ class EstudiantesServices with ChangeNotifier {
     );
   }
 
-  Future<void> saveUserDataToSharedPreferences(String username) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.setString('username', username);
-}
+  Future<void> saveUserDataToSharedPreferences(String username, String cedula) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('username', username);
+    prefs.setString('cedula', cedula);
+  }
 }
