@@ -5,6 +5,7 @@ import 'package:pasantapp/views/feed/FrmProfile.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class FrmBottomMenuBar extends StatefulWidget {
+  static const routeName = '/feed-students';
   const FrmBottomMenuBar({super.key});
 
   @override
