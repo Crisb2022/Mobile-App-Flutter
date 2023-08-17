@@ -95,7 +95,7 @@ class _ProfileState extends State<Profile> {
               children: [
                 _TopPortion(base64ImageData: "${pasantiaInfo['image']}"),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -131,17 +131,145 @@ class _ProfileState extends State<Profile> {
                       ),
                       const SizedBox(height: 16),
                       const _ProfileInfoRow(),
-                      const SizedBox(height: 16),
-                      Text(
-                        "Usuario: $username\nID: $userId  \n$correo \n$nacimiento",
-                        style: const TextStyle(fontSize: 20),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 16),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.person,
+                                color: Colors.grey,
+                                size: 20,
+                              ),
+                              SizedBox(width: 8),
+                              Text(
+                                "Usuario: $username",
+                                style:
+                                    TextStyle(fontSize: 18, color: Colors.grey),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.card_membership,
+                                color: Colors.grey,
+                                size: 20,
+                              ),
+                              SizedBox(width: 8),
+                              Text(
+                                "ID: $userId",
+                                style:
+                                    TextStyle(fontSize: 18, color: Colors.grey),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.email,
+                                color: Colors.grey,
+                                size: 20,
+                              ),
+                              SizedBox(width: 8),
+                              Text(
+                                "$correo",
+                                style:
+                                    TextStyle(fontSize: 18, color: Colors.grey),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.cake,
+                                color: Colors.grey,
+                                size: 20,
+                              ),
+                              SizedBox(width: 8),
+                              Text(
+                                "$nacimiento",
+                                style:
+                                    TextStyle(fontSize: 18, color: Colors.grey),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.book,
+                                color: Colors.grey,
+                                size: 20,
+                              ),
+                              SizedBox(width: 8),
+                              Text(
+                                "${pasantiaInfo['carrera']}",
+                                style:
+                                    TextStyle(fontSize: 18, color: Colors.grey),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.work,
+                                color: Colors.grey,
+                                size: 20,
+                              ),
+                              SizedBox(width: 8),
+                              Text(
+                                "${pasantiaInfo['objetivo']}",
+                                style:
+                                    TextStyle(fontSize: 18, color: Colors.grey),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.people,
+                                color: Colors.grey,
+                                size: 20,
+                              ),
+                              SizedBox(width: 8),
+                              Text(
+                                "${pasantiaInfo['vision']}",
+                                style:
+                                    TextStyle(fontSize: 18, color: Colors.grey),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 16),
+                          ElevatedButton(
+                            onPressed: () {
+                              // Agrega aquí la lógica para mostrar el C.V
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.green,
+                              onPrimary: Colors.white,
+                              textStyle: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 12),
+                            ),
+                            child: Text("Ver C.V"),
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 16),
-                      Text(
-                        "${pasantiaInfo['vision']}",
-                        style: const TextStyle(fontSize: 20),
-                      ),
-                      const SizedBox(height: 16),
                     ],
                   ),
                 ),
@@ -219,8 +347,8 @@ class _TopPortion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints:
-          BoxConstraints(minHeight: 100, maxHeight: 200), // Establece una altura mínima
+      constraints: BoxConstraints(
+          minHeight: 100, maxHeight: 200), // Establece una altura mínima
       child: Stack(
         fit: StackFit.expand,
         children: [
