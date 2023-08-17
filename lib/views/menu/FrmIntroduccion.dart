@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pasantapp/views/FrmWelcomeApp.dart';
+import 'package:pasantapp/views/menu/FrmMenu.dart';
 
 class OnboardingPageModel {
   final String title;
@@ -127,7 +128,7 @@ class _FrmIntroduccionState extends State<FrmIntroduccion> {
                     TextButton(
                         onPressed: () {
                           Navigator.of(context)
-          .push(MaterialPageRoute(builder: (ctx) => WelcomeScreen()));
+          .push(MaterialPageRoute(builder: (ctx) => FrmBottomMenuBar()));
                         },
                         child: const Text(
                           "Avanzar",
