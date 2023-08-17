@@ -106,8 +106,7 @@ class EstudiantesServices with ChangeNotifier {
         userInfo['nombres'].toString(),
         userInfo['apellidos'].toString(),
         userInfo['correo'].toString(), 
-        userInfo['nacimiento'].toString(), 
-        userInfo['image'].toString());
+        userInfo['nacimiento'].toString());
         return userInfo;
       } else if (response.statusCode == 204) {
         await widgetError(context, "Usuario o contraseña erroneos");
@@ -178,8 +177,7 @@ class EstudiantesServices with ChangeNotifier {
    String nombres,
    String apellidos, 
    String correo, 
-   String nacimiento, 
-   String image ) async {
+   String nacimiento ) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('username', username);
     prefs.setString('cedula', cedula);
@@ -187,6 +185,5 @@ class EstudiantesServices with ChangeNotifier {
     prefs.setString('apellidos', apellidos);
     prefs.setString('correo', correo);
     prefs.setString('nacimiento', nacimiento);
-    prefs.setString('image', image);
   }
 }

@@ -1,6 +1,6 @@
 // URL SCRAP
 const String protocol = "http://";
-const String host = "192.168.100.20";
+const String host = "192.168.100.240";
 const String port = "5000";
 const String path = "/api/scrap";
 
@@ -8,7 +8,7 @@ const String urlScrap = "$protocol$host:$port$path";
 
 // URL CHAT
 const String protocolChat = "http://";
-const String hostChat = "192.168.100.20";
+const String hostChat = "192.168.100.240";
 const String portChat = "5000";
 const String pathChat = "/api/chat";
 

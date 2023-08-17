@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -132,16 +134,13 @@ Future<File?> selectImage(int op) async {
     return base64Image;
   }
 
-  Future<File?> decodeBase64AndSave(String base64Image) async {
-    try {
-      List<int> imageBytes = base64Decode(base64Image);
-      Directory tempDir = await getTemporaryDirectory();
-      File tempFile = File('${tempDir.path}/decoded_image.png');
-      await tempFile.writeAsBytes(imageBytes);
-      return tempFile;
-    } catch (e) {
-      print('Error decoding base64: $e');
-      return null;
-    }
+  Future<Uint8List?> decodeBase64(String base64Image) async {
+  try {
+    print(base64Image);
+    return base64Decode(base64Image);
+  } catch (e) {
+    print('Error decoding base64: $e');
+    return null;
   }
+}
 }

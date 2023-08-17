@@ -1,101 +1,155 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:pasantapp/utils/ImageSignUp.dart';
 import 'package:pasantapp/views/registro/FrmLoginScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
-class Profile extends StatelessWidget {
-  static const routeName = '/feed-profile-screen';     
+class Profile extends StatefulWidget {
+  static const routeName = '/feed-profile-screen';
 
-  const Profile({Key? key}) : super(key: key);
+  Profile({Key? key}) : super(key: key);
 
+  @override
+  _ProfileState createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  Map<String, dynamic> pasantiaInfo = {};
+  String username = '';
+
+  @override
+  void initState() {
+    super.initState();
+    getPasantias();
+  }
+
+  Future<Map<String, String>> _loadUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return {
+      'username': prefs.getString('username') ?? '',
+      'userId': prefs.getString('cedula') ?? '',
+      'nombres': prefs.getString('nombres') ?? '',
+      'apellidos': prefs.getString('apellidos') ?? '',
+      'correo': prefs.getString('correo') ?? '',
+      'nacimiento': prefs.getString('nacimiento') ?? '',
+      'cedula': prefs.getString('cedula') ?? '',
+    };
+  }
+
+  Future<void> getPasantias() async {
+    Map<String, String> userData = await _loadUserData();
+    String cedula = userData['cedula'] ?? '';
+
+    var urlCasa = 'http://192.168.100.240:7001/estudiantes/perfil/$cedula';
+    final response = await http.get(Uri.parse(urlCasa));
+    if (response.statusCode == 200) {
+      setState(() {
+        pasantiaInfo = Map<String, dynamic>.from(json.decode(response.body));
+      });
+    } else {
+      throw Exception('Error al cargar los datos');
+    }
+  }
 
   void _cerrarSesion(BuildContext context) {
     Navigator.popUntil(context, ModalRoute.withName('/'));
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (ctx) => LoginScreen()));
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (ctx) => LoginScreen()));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.amber,
-        title: const Text('Selecciona una categoría'),
-        elevation: 5,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.exit_to_app),
-            onPressed: () => _cerrarSesion(context),
+    return FutureBuilder<Map<String, String>>(
+      future: _loadUserData(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        }
+
+        Map<String, String> userData = snapshot.data ?? {};
+        username = userData['username'] ?? '';
+        String userId = userData['userId'] ?? '';
+        String nombres = userData['nombres'] ?? '';
+        String apellidos = userData['apellidos'] ?? '';
+        String correo = userData['correo'] ?? '';
+        String nacimiento = userData['nacimiento'] ?? '';
+        String cedula = userData['cedula'] ?? '';
+
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Color.fromARGB(255, 234, 230, 219),
+            title: const Text('Selecciona una categoría'),
+            elevation: 5,
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.exit_to_app),
+                onPressed: () => _cerrarSesion(context),
+              ),
+            ],
           ),
-        ],
-      ),
-      body: Column(
-        children: [
-          const Expanded(flex: 2, child: _TopPortion()),
-          Expanded(
-            flex: 3,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Text(
-                    "Cris",
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleLarge
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                _TopPortion(base64ImageData: "${pasantiaInfo['image']}"),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      FloatingActionButton.extended(
-                        onPressed: () {},
-                        heroTag: 'follow',
-                        elevation: 0,
-                        label: const Text("Follow"),
-                        icon: const Icon(Icons.person_add_alt_1),
+                      Text(
+                        '$nombres $apellidos',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge
+                            ?.copyWith(fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(width: 16.0),
-                      FloatingActionButton.extended(
-                        onPressed: () {},
-                        heroTag: 'mesage',
-                        elevation: 0,
-                        backgroundColor: Colors.red,
-                        label: const Text("Message"),
-                        icon: const Icon(Icons.message_rounded),
+                      const SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          FloatingActionButton.extended(
+                            onPressed: () {},
+                            heroTag: 'follow',
+                            elevation: 0,
+                            backgroundColor: Color.fromARGB(255, 148, 186, 221),
+                            label: const Text("GitHub"),
+                            icon: const Icon(Icons.g_mobiledata_outlined),
+                          ),
+                          const SizedBox(width: 16.0),
+                          FloatingActionButton.extended(
+                            onPressed: () {},
+                            heroTag: 'message',
+                            elevation: 0,
+                            backgroundColor: Colors.blue,
+                            label: const Text("Facebook"),
+                            icon: const Icon(Icons.facebook),
+                          ),
+                        ],
                       ),
+                      const SizedBox(height: 16),
+                      const _ProfileInfoRow(),
+                      const SizedBox(height: 16),
+                      Text(
+                        "Usuario: $username\nID: $userId  \n$correo \n$nacimiento",
+                        style: const TextStyle(fontSize: 20),
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        "${pasantiaInfo['vision']}",
+                        style: const TextStyle(fontSize: 20),
+                      ),
+                      const SizedBox(height: 16),
                     ],
                   ),
-                  const SizedBox(height: 16),
-                  FutureBuilder<SharedPreferences>(
-                    future: SharedPreferences.getInstance(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return CircularProgressIndicator(); // Puedes mostrar un indicador de carga
-                      }
-
-                      String username   = snapshot.data?.getString('username') ?? '';
-                      String userId     = snapshot.data?.getString('cedula') ?? '';
-                      String nombres    = snapshot.data?.getString('nombres') ?? '';
-                      String apellidos  = snapshot.data?.getString('apellidos') ?? '';
-                      String correo     = snapshot.data?.getString('correo') ?? '';
-                      String nacimiento = snapshot.data?.getString('nacimiento') ?? '';
-                      String image      = snapshot.data?.getString('image') ?? '';
-
-                      return Text(
-                        "Usuario: $username\nID: $userId \n$nombres \n$apellidos \n$correo \n$nacimiento \n$image",
-                        style: const TextStyle(fontSize: 20),
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  const _ProfileInfoRow()
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
@@ -118,12 +172,13 @@ class _ProfileInfoRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: _items
             .map((item) => Expanded(
-                    child: Row(
-                  children: [
-                    if (_items.indexOf(item) != 0) const VerticalDivider(),
-                    Expanded(child: _singleItem(context, item)),
-                  ],
-                )))
+                  child: Row(
+                    children: [
+                      if (_items.indexOf(item) != 0) const VerticalDivider(),
+                      Expanded(child: _singleItem(context, item)),
+                    ],
+                  ),
+                ))
             .toList(),
       ),
     );
@@ -144,7 +199,7 @@ class _ProfileInfoRow extends StatelessWidget {
           ),
           Text(
             item.title,
-            style: Theme.of(context).textTheme.caption,
+            style: Theme.of(context).textTheme.bodySmall,
           )
         ],
       );
@@ -157,61 +212,86 @@ class ProfileInfoItem {
 }
 
 class _TopPortion extends StatelessWidget {
-  const _TopPortion({Key? key}) : super(key: key);
+  final String? base64ImageData;
+
+  const _TopPortion({Key? key, this.base64ImageData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        Container(
-          margin: const EdgeInsets.only(bottom: 50),
-          decoration: const BoxDecoration(
+    return Container(
+      constraints:
+          BoxConstraints(minHeight: 100, maxHeight: 200), // Establece una altura mínima
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          Container(
+            margin: const EdgeInsets.only(bottom: 50),
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                  colors: [Color(0xff0043ba), Color(0xff006df1)]),
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+                colors: [
+                  Color.fromARGB(255, 202, 64, 227),
+                  Color.fromARGB(255, 230, 197, 236),
+                ],
+              ),
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(50),
                 bottomRight: Radius.circular(50),
-              )),
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: SizedBox(
-            width: 150,
-            height: 150,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.black,
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(
-                            'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80')),
-                  ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: CircleAvatar(
-                    radius: 20,
-                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                    child: Container(
-                      margin: const EdgeInsets.all(8.0),
-                      decoration: const BoxDecoration(
-                          color: Colors.green, shape: BoxShape.circle),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
-        )
-      ],
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: SizedBox(
+              width: 150,
+              height: 150,
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  FutureBuilder<Uint8List?>(
+                    future: ImageSignUp().decodeBase64(base64ImageData!),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return CircularProgressIndicator();
+                      } else if (snapshot.hasError || snapshot.data == null) {
+                        return Text('Error al decodificar la imagen');
+                      } else {
+                        return Container(
+                          decoration: BoxDecoration(
+                            color: Colors.black,
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: MemoryImage(snapshot.data!),
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: CircleAvatar(
+                      radius: 20,
+                      backgroundColor:
+                          Theme.of(context).scaffoldBackgroundColor,
+                      child: Container(
+                        margin: const EdgeInsets.all(8.0),
+                        decoration: const BoxDecoration(
+                          color: Colors.green,
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
