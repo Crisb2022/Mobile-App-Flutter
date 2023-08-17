@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'dart:convert';
+import 'package:path_provider/path_provider.dart';
 
 class ImageSignUp {
 
@@ -101,45 +103,45 @@ class ImageSignUp {
     return selectedImage;
   }
 
- Future<File?> selectImage(int op) async {
-    var pickedFile;
+Future<File?> selectImage(int op) async {
+  var pickedFile;
 
-    if (op == 1) {
-      pickedFile = await picker.pickImage(source: ImageSource.camera);
-    } else if (op == 2) {
-      pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    }
-
-    if (pickedFile != null) {
-      return File(pickedFile.path);
-    }else{
-      return File('/Aplicacion-PassApp/assets/images/cargando.gif');
-    }
-
-    return null;
+  if (op == 1) {
+    pickedFile = await picker.pickImage(source: ImageSource.camera);
+  } else if (op == 2) {
+    pickedFile = await picker.pickImage(source: ImageSource.gallery);
   }
 
-  Future<void> subirImagen(File? imagen, String cedula)async{
+  if (pickedFile != null) {
+    File imageFile = File(pickedFile.path);
+    String? base64Image = await getImageAsBase64(imageFile); // Llamada al método aquí
+    if (base64Image != null) {
+      // Aquí puedes hacer algo con el archivo de imagen y su representación en base64
+    } else {
+      // Manejo en caso de que no se pueda convertir la imagen a base64
+    }
+    return imageFile;
+  } else {
+    return File('/Aplicacion-PassApp/assets/images/cargando.gif');
+  }
+}
+
+  Future<String?> getImageAsBase64(File imageFile) async {
+    List<int> imageBytes = await imageFile.readAsBytes();
+    String base64Image = base64Encode(imageBytes);
+    return base64Image;
+  }
+
+  Future<File?> decodeBase64AndSave(String base64Image) async {
     try {
-      String fileName = imagen!.path.split('/').last;
-      // ignore: unnecessary_new
-      FormData formData = new FormData.fromMap({
-        'idImagen': cedula,
-        'file': await MultipartFile.fromFile(
-          imagen.path, filename: fileName
-        )
-      });
-      await dio.post('http://192.168.100.240:7001/estudiantes/image',
-      data: formData).then((value) {
-        if (value.toString() == '1') {
-          print('ta posi papi');
-        } else {
-          print('Algo salio mal');
-        }
-      });
+      List<int> imageBytes = base64Decode(base64Image);
+      Directory tempDir = await getTemporaryDirectory();
+      File tempFile = File('${tempDir.path}/decoded_image.png');
+      await tempFile.writeAsBytes(imageBytes);
+      return tempFile;
     } catch (e) {
-      print(e.toString());
+      print('Error decoding base64: $e');
+      return null;
     }
   }
-
 }

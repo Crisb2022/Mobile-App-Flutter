@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:pasantapp/services/FeedServices.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FrmInfoPasantia extends StatefulWidget {
   final Map<String, dynamic> pasantia;
@@ -14,6 +18,8 @@ class FrmInfoPasantia extends StatefulWidget {
 class _FrmInfoPasantiaState extends State<FrmInfoPasantia> {
   Map<String, dynamic> pasantiaInfo = {};
   List<ProfileInfoItem> _items = [];
+  String userId = '';
+  String username = '';
 
   Future<void> getPasantias() async {
     var urlCasa =
@@ -110,7 +116,25 @@ class _FrmInfoPasantiaState extends State<FrmInfoPasantia> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               FloatingActionButton.extended(
-                                onPressed: () {},
+                                onPressed: () async {
+                                  final email = '${pasantiaInfo['correo']}';
+                                  const subject = 'Pasantias Pre Profesionales publicadas en PassApp';
+                                  final body = 'Saludos mi nombre es $username y estoy interesado en realizar precticas Pre-Profesionales en su empresa ...';
+
+                                  final uri = Uri(
+                                    scheme: 'mailto',
+                                    path: email,
+                                    queryParameters: {
+                                      'subject': subject,
+                                      'body': body,
+                                    },
+                                  );
+                                  if (await canLaunchUrl(uri)) {
+                                    await launchUrl(uri);
+                                  } else {
+                                    throw 'No se pudo abrir el correo electrónico.';
+                                  }
+                                },
                                 elevation: 0,
                                 heroTag: 'mail',
                                 label: const Text("Mail"),
@@ -118,13 +142,27 @@ class _FrmInfoPasantiaState extends State<FrmInfoPasantia> {
                               ),
                               const SizedBox(width: 16.0),
                               FloatingActionButton.extended(
-                                onPressed: () {},
+                                onPressed: () async {
+                                  String phoneNumber =
+                                      '1234567890'; // Número de teléfono de destino en formato internacional
+                                  String message =
+                                      'Hola, estoy interesado en la oferta de trabajo.'; // Mensaje inicial
+
+                                  Uri uri = Uri.parse(
+                                      'https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}');
+
+                                  if (await canLaunchUrl(uri)) {
+                                    await launchUrl(uri);
+                                  } else {
+                                    throw 'No se pudo abrir WhatsApp.';
+                                  }
+                                },
                                 elevation: 0,
-                                heroTag: 'mesage',
+                                heroTag: 'message',
                                 backgroundColor: Colors.green,
                                 label: const Text("WhatsApp"),
                                 icon: const Icon(Icons.wechat_sharp),
-                              ),
+                              )
                             ],
                           ),
                           const SizedBox(height: 16),
@@ -236,25 +274,46 @@ class _FrmInfoPasantiaState extends State<FrmInfoPasantia> {
                             height: 60,
                             child: ElevatedButton(
                               onPressed: () {
-                                // Acción para subir hoja de vida
+                                Provider.of<FeedServices>(context,
+                                        listen: false)
+                                    .postulacionBody(
+                                        "${pasantiaInfo['id_org']}",
+                                        userId,
+                                        '${widget.pasantia['empresa']}',
+                                        context);
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    Colors.purple, // Color de fondo del botón
-                                disabledForegroundColor:
-                                    Colors.white, // Color del texto del botón
+                                backgroundColor: Colors.purple,
+                                disabledForegroundColor: Colors.white,
                                 textStyle: const TextStyle(fontSize: 20),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                      30), // Borde redondeado
+                                  borderRadius: BorderRadius.circular(30),
                                 ),
-                                elevation: 5, // Elevación para agregar sombra
-                                padding: const EdgeInsets.all(
-                                    16), // Espaciado interno del botón
+                                elevation: 5,
+                                padding: const EdgeInsets.all(16),
                               ),
-                              child: const Text('Postular'),
+                              child: FutureBuilder<SharedPreferences>(
+                                future: SharedPreferences.getInstance(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return CircularProgressIndicator();
+                                  }
+
+                                  username =
+                                      snapshot.data?.getString('username') ??
+                                          '';
+                                  userId =
+                                      snapshot.data?.getString('cedula') ?? '';
+
+                                  return const Text(
+                                    '!Postulate!',
+                                    style: TextStyle(fontSize: 20),
+                                  );
+                                },
+                              ),
                             ),
-                          ),
+                          )
                         ],
                       ),
                     ),

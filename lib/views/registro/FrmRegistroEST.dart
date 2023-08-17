@@ -15,6 +15,7 @@ class SignupEstudiante extends StatefulWidget {
 
 class _SignupEstudianteState extends State<SignupEstudiante> {
   File? image;
+  String? base64ImageData;
 
   final nombresController = TextEditingController();
   final apellidosController = TextEditingController();
@@ -115,10 +116,9 @@ class _SignupEstudianteState extends State<SignupEstudiante> {
                               Text(
                                 'Registro de datos',
                                 style: TextStyle(
-                                  fontSize: 40,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.brown
-                                ),
+                                    fontSize: 40,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.brown),
                               ),
                             ],
                           ),
@@ -149,9 +149,17 @@ class _SignupEstudianteState extends State<SignupEstudiante> {
                                     await imageSignUp.mostrarDialogo(context);
 
                                 if (selectedImage != null) {
-                                  setState(() {
-                                    image = selectedImage;
-                                  });
+                                  String? base64Image = await imageSignUp
+                                      .getImageAsBase64(selectedImage);
+
+                                  if (base64Image != null) {
+                                    setState(() {
+                                      image = selectedImage;
+                                      base64ImageData = base64Image; // Asigna la representación en base64
+                                    });
+                                  } else {
+                                    // Manejo en caso de que no se pueda convertir la imagen a base64
+                                  }
                                 }
                               },
                               style: ElevatedButton.styleFrom(
@@ -196,10 +204,9 @@ class _SignupEstudianteState extends State<SignupEstudiante> {
                                         correoController.text,
                                         usuarioController.text,
                                         passwordController.text,
-                                        "${cedulaController.text}.jpg",
+                                        base64ImageData!,
                                         nacimientoController.text,
                                         context);
-                                        ImageSignUp().subirImagen(image!, cedulaController.text);
                               },
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(

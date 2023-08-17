@@ -3,7 +3,8 @@ import 'package:pasantapp/views/registro/FrmLoginScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatelessWidget {
-  static const routeName = '/feed-profile-screen';
+  static const routeName = '/feed-profile-screen';     
+
   const Profile({Key? key}) : super(key: key);
 
 
@@ -40,7 +41,7 @@ class Profile extends StatelessWidget {
                     "Cris",
                     style: Theme.of(context)
                         .textTheme
-                        .headline6
+                        .titleLarge
                         ?.copyWith(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 16),
@@ -73,12 +74,17 @@ class Profile extends StatelessWidget {
                         return CircularProgressIndicator(); // Puedes mostrar un indicador de carga
                       }
 
-                      String username = snapshot.data?.getString('username') ?? '';
-                      String userId = snapshot.data?.getString('cedula') ?? '';
+                      String username   = snapshot.data?.getString('username') ?? '';
+                      String userId     = snapshot.data?.getString('cedula') ?? '';
+                      String nombres    = snapshot.data?.getString('nombres') ?? '';
+                      String apellidos  = snapshot.data?.getString('apellidos') ?? '';
+                      String correo     = snapshot.data?.getString('correo') ?? '';
+                      String nacimiento = snapshot.data?.getString('nacimiento') ?? '';
+                      String image      = snapshot.data?.getString('image') ?? '';
 
                       return Text(
-                        "Usuario: $username\nID: $userId",
-                        style: TextStyle(fontSize: 20),
+                        "Usuario: $username\nID: $userId \n$nombres \n$apellidos \n$correo \n$nacimiento \n$image",
+                        style: const TextStyle(fontSize: 20),
                       );
                     },
                   ),

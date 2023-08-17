@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:pasantapp/services/EstudiantesService.dart';
+import 'package:provider/provider.dart';
 
 class FrmPerfil extends StatefulWidget {
   static const routeName = '/signup-screen-students';
@@ -12,11 +14,9 @@ class FrmPerfil extends StatefulWidget {
 }
 
 class _FrmPerfilState extends State<FrmPerfil> {
-  
-
-  TextEditingController visionController = TextEditingController();
-  TextEditingController carreraController = TextEditingController();
-  TextEditingController objetivoController = TextEditingController();
+  final visionController = TextEditingController();
+  final carreraController = TextEditingController();
+  final objetivoController = TextEditingController();
   String? filePath;
 
   void _pickPDF() async {
@@ -32,46 +32,114 @@ class _FrmPerfilState extends State<FrmPerfil> {
     }
   }
 
+  Widget buildTextField(TextEditingController controller, String labelText,
+      TextInputType inputType,
+      {bool isMultiline = false}) {
+    return Container(
+      height: isMultiline ? null : 55,
+      margin: const EdgeInsets.only(bottom: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: TextField(
+        controller: controller,
+        autocorrect: false,
+        enableSuggestions: false,
+        autofocus: false,
+        keyboardType: inputType,
+        maxLines: isMultiline ? null : 1,
+        decoration: InputDecoration(
+          hintText: labelText,
+          hintStyle: const TextStyle(
+            fontSize: 18,
+            color: Colors.grey,
+            fontStyle: FontStyle.italic,
+          ),
+          border: InputBorder.none,
+        ),
+      ),
+    );
+  }
+
+  Widget buildElevatedButton(String text, Function onPressed,
+      {Color? backgroundColor, IconData? icon}) {
+    return Container(
+      height: 60,
+      padding: EdgeInsets.symmetric(vertical: 5),
+      child: ElevatedButton.icon(
+        onPressed: onPressed as void Function()?,
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+          backgroundColor: backgroundColor ?? Colors.amber,
+        ),
+        icon: Icon(icon ?? Icons.upload_file),
+        label: Text(
+          text,
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Subir Información'),
-      ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TextField(
-              controller: visionController,
-              decoration: InputDecoration(labelText: 'Visión'),
+            const SizedBox(height: 40),
+            const Text(
+              'Subir Información',
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: Colors.indigo,
+              ),
+              textAlign: TextAlign.center,
             ),
-            TextField(
-              controller: carreraController,
-              decoration: InputDecoration(labelText: 'Carrera'),
-            ),
-            TextField(
-              controller: objetivoController,
-              decoration: InputDecoration(labelText: 'Objetivo'),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _pickPDF,
-              child: Text('Subir Archivo PDF'),
+            const SizedBox(height: 30),
+            buildTextField(visionController, 'Visión', TextInputType.text,
+                isMultiline: true), // Make it multiline
+            buildTextField(carreraController, 'Carrera', TextInputType.text),
+            buildTextField(
+              objetivoController,
+              'Objetivo',
+              TextInputType.multiline,
+              isMultiline: true,
+            ), // Make it multiline
+            const SizedBox(height: 30),
+            buildElevatedButton(
+              'Subir Archivo PDF',
+              _pickPDF,
+              backgroundColor: Colors.amber,
             ),
             if (filePath != null)
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: Text('Archivo seleccionado: $filePath'),
               ),
-            Spacer(),
-            ElevatedButton(
-              onPressed: () {
-                // Aquí puedes implementar la lógica para enviar la información y el archivo a donde corresponda
+            const SizedBox(height: 30),
+            buildElevatedButton(
+              'Enviar Perfil',
+              () {
+                Provider.of<EstudiantesServices>(context, listen: false)
+                    .signupPerfil(widget.cedula, visionController.text,
+                        carreraController.text, objetivoController.text,'999', context);
               },
-              child: Text('Guardar Información'),
+              backgroundColor: Colors.amber,
+              icon: Icons.send,
             ),
+            const SizedBox(height: 40),
           ],
         ),
       ),

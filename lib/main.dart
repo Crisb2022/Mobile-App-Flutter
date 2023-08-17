@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pasantapp/services/FeedServices.dart';
 import 'package:pasantapp/views/menu/FrmIntroduccion.dart';
 import 'package:pasantapp/views/registro/FrmLoginScreen.dart';
 import 'package:pasantapp/views/registro/FrmTecnologias.dart';
@@ -20,8 +21,11 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (ctx) => EstudiantesServices(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => EstudiantesServices()),
+        ChangeNotifierProvider(create: (_) => FeedServices()), // Agrega este provider
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
