@@ -29,4 +29,9 @@ class ChatbotModel {
     var response = await ResourceExecute.getChatbotMessage(message);
     return Validate(response).hasRequetsErrorOrBody(toObject);
   }
+
+  getChatbotRecomendacion(String message) async {
+    var response = await ResourceExecute.getChatbotRecomendacion(message);
+    return Validate(response).hasRequetsErrorOrBody(toObject);
+  }
 }

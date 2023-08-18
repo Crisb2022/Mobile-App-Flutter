@@ -118,9 +118,14 @@ class _FeedHomeState extends State<FeedHome> {
                               children: [
                                 const Icon(Icons.person),
                                 const SizedBox(width: 8),
-                                Text(
-                                  "Cargo: ${pasantia['cargo']}",
-                                  style: Theme.of(context).textTheme.bodyLarge,
+                                Container(
+                                  constraints: BoxConstraints(maxWidth: 200),
+                                  child: Text(
+                                    "Cargo: ${pasantia['cargo']}",
+                                    style: Theme.of(context).textTheme.bodyLarge,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                  ),
                                 ),
                               ],
                             ),

@@ -18,3 +18,4 @@ const String urlChat = "$protocolChat$hostChat:$portChat$pathChat";
 const String internshipsResource = "/pasantias";
 const String internshipInfoResource = "/pasantias/info/";
 const String chatbotResource = "/openai";
+const String chatbotRecomendacion = "/recomendacion";

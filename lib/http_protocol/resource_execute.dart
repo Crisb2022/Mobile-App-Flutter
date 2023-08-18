@@ -12,4 +12,7 @@ class ResourceExecute {
   // Conexion con el chatbot
   static getChatbotMessage(String message) => HTTPExecute(url: urlChat, resource: chatbotResource, params: {"message": message}).post();
 
+  // Conexion con el chatbot
+  static getChatbotRecomendacion(String message) => HTTPExecute(url: urlChat, resource: chatbotRecomendacion, params: {"message": message}).post();
+
 }

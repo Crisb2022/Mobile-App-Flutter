@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:pasantapp/common/validate_data.dart';
 import 'dart:convert';
+
+import 'package:pasantapp/models/chatbot_model.dart';
 
 class FrmTecnologias extends StatefulWidget {
   static const routeName = '/signup-profile-screen';
@@ -12,6 +15,8 @@ class FrmTecnologias extends StatefulWidget {
 class _FrmTecnologiasState extends State<FrmTecnologias> {
   List<Map<String, dynamic>> tecnologias = [];
   List<String> tecnologiasSeleccionadas = [];
+  String _responseChat = '';
+  ChatbotModel _chatbotModel = ChatbotModel();
 
   Future<void> getTecnologias() async {
     var urlCasa = 'http://192.168.100.240:7001/estudiantes/tecnologias';
@@ -38,43 +43,57 @@ class _FrmTecnologiasState extends State<FrmTecnologias> {
   }
 
   void mostrarTecnologiasSeleccionadas() {
-  showModalBottomSheet(
-    context: context,
-    builder: (BuildContext context) {
-      return Container(
-        height: 400,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                "Tecnologías seleccionadas:",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 1000,
+          child: Column(
+            children: [
+              const Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  "Tus habilidades:",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: tecnologiasSeleccionadas.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return ListTile(
-                    title: Text(tecnologiasSeleccionadas[index]),
-                  );
+              Expanded(
+                child: ListView.builder(
+                  itemCount: tecnologiasSeleccionadas.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ListTile(
+                      title: Text( _responseChat),
+                    );
+                  },
+                ),
+              ),
+              
+              ElevatedButton(
+                onPressed: () {
+                  responseChatAi(tecnologiasSeleccionadas.join(', '));
+                  Navigator.pop(context);
                 },
+                child: Text("Cerrar"),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text(
-                "Tecnologías seleccionadas: ${tecnologiasSeleccionadas.join(', ')}",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
-        ),
-      );
-    },
-  );
-}
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void responseChatAi(String mensaje) async {
+    var chatMessage = await ChatbotModel().getChatbotRecomendacion(mensaje);
+    (Validate.isNotRequestError(chatMessage))
+        ? {
+            _chatbotModel = chatMessage,
+            setState(() {
+              _responseChat = _chatbotModel.message;
+            }),
+            print(_chatbotModel.message)
+          }
+        : _chatbotModel = ChatbotModel();
+  }
 
   @override
   void initState() {
