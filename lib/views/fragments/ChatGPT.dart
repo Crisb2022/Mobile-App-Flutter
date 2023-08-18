@@ -69,6 +69,11 @@ class _ChatGPTState extends State<ChatGPT> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          backgroundColor: Colors.red,
+          title:  const Center(child: Text('OpenAI', textAlign: TextAlign.center)),
+          elevation: 0,
+        ),
       body: Column(
         children: [
           Expanded(

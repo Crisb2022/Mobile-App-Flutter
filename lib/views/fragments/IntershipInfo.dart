@@ -6,19 +6,18 @@ import '../../../http_protocol/request_error.dart';
 import '../../../models/intershipsInfo_model.dart';
 
 class IntershipInfo extends StatefulWidget {
-
   int id;
   String empresa;
   String puesto;
 
-  IntershipInfo({required this.id, required this.empresa, required this.puesto});
+  IntershipInfo(
+      {required this.id, required this.empresa, required this.puesto});
 
   @override
   State<IntershipInfo> createState() => _IntershipInfoState();
 }
 
 class _IntershipInfoState extends State<IntershipInfo> {
-
   bool isLoading = true;
   IntershipsInfoModel obj = IntershipsInfoModel();
 
@@ -32,7 +31,7 @@ class _IntershipInfoState extends State<IntershipInfo> {
     print("ejecutando metodo info");
     var interships = await IntershipsInfoModel().getIntershipsInfo(widget.id);
 
-    if(Validate.isNotRequestError(interships)) {
+    if (Validate.isNotRequestError(interships)) {
       obj = interships;
       setState(() {
         isLoading = false;
@@ -42,68 +41,42 @@ class _IntershipInfoState extends State<IntershipInfo> {
       RequestError error = interships as RequestError;
       print(error.messageError);
     }
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: isLoading ? const Center(child: CircularProgressIndicator(
-          color: Color(0xFF2A3EB0),
-        )) :
-        Center(
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            constraints: const BoxConstraints(maxWidth: 400),
-            child: ListView(
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                        child: Column(
+        appBar: AppBar(
+          backgroundColor: const Color.fromARGB(255, 72, 127, 153),
+          title: const Text('Multitrabajos', textAlign: TextAlign.center),
+          elevation: 0,
+        ),
+        body: isLoading
+            ? const Center(
+                child: CircularProgressIndicator(
+                color: Color(0xFF2A3EB0),
+              ))
+            : Center(
+                child: Container(
+                  constraints: const BoxConstraints(maxWidth: 400),
+                  child: ListView(children: [
+                    Row(
+                      children: [
+                        Expanded(
+                            child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
                               constraints: const BoxConstraints(maxWidth: 400),
-                              child: Column(
+                              child: const Column(
                                 children: [
                                   Center(
                                     child: Stack(
-                                      children: [
-                                        Container(
-                                          height: 140,
-                                          decoration: const BoxDecoration(
-                                            gradient: LinearGradient(
-                                              colors: [
-                                                Color(0xFF2A3EB0),
-                                                Color(0xBF00BE96),
-                                                Color(0xFFF1EAEA)],
-                                              begin: Alignment.topCenter,
-                                              end: Alignment.bottomCenter,
-                                            ),
-                                          ),
-                                        ),
-                                        Positioned(
-                                          top: 60,
-                                          left: 150,
-                                            child: Container(
-                                              height: 100,
-                                              width: 100,
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(300.0),
-                                                border: Border.all(color: const Color(0xFF5B5959)),
-                                                image: const DecorationImage(
-                                                  image: AssetImage('assets/img/compania.png'),
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                            ),
-                                        ),
-                                      ],
+                                      children: [_TopPortion()],
                                     ),
                                   ),
-                                  const SizedBox(height: 12),
+                                  SizedBox(height: 12),
                                 ],
                               ),
                             ),
@@ -111,121 +84,201 @@ class _IntershipInfoState extends State<IntershipInfo> {
                               width: double.infinity,
                               child: Text(
                                 widget.empresa,
-                                style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 17),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                    fontSize: 50),
                                 textAlign: TextAlign.center,
                               ),
                             ),
-                            const SizedBox(height: 8),
-                            Row(
-                              children: [
-                                const Text(
-                                  "Puesto: ",
-                                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-                                ),
-                                Text(
-                                  ' ${widget.puesto}',
-                                  style: const TextStyle(fontWeight: FontWeight.normal, color: Colors.black),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 8),
-                            const Text(
-                              "Descripción:",
-                              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              obj.descripcion,
-                              style: const TextStyle(fontWeight: FontWeight.normal, color: Colors.black),
-                            ),
-                            const SizedBox(height: 8),
-                            Container(
-                              height: 1,
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: const Color(0xFF484646))
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                            const SizedBox(height: 20),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20.0),
+                              child: Column(
                                 children: [
                                   Row(
                                     children: [
-                                      const Icon(Icons.location_city_sharp, size: 20, color: Color(0xFF2A3EB0)),
+                                      const Text(
+                                        "Puesto: ",
+                                        style: TextStyle(
+                                          fontSize: 18, 
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black),
+                                      ),
                                       Text(
-                                          ' ${obj.modalidad}',
-                                          style: const TextStyle(fontWeight: FontWeight.normal, color: Colors.black87)),
+                                        ' ${widget.puesto}',
+                                        style: const TextStyle(
+                                          fontSize: 18, 
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.black),
+                                      ),
                                     ],
                                   ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            const Padding(
+                              padding:  EdgeInsets.only(left: 20.0),
+                              child:  Column(
+                                children: [
+                                   Text(
+                                          "Descripción:",
+                                          style: TextStyle(
+                                            fontSize: 18, 
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
+                                        ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    obj.descripcion,
+                                    style: const TextStyle(
+                                      fontSize: 15, 
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.black),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  _buildRow(
+                                      Icons.location_city_sharp, obj.modalidad),
                                   const SizedBox(height: 8),
-                                  Row(
-                                    children: [
-                                      const Icon(CupertinoIcons.cube, size: 20, color: Color(0xFF2A3EB0)),
-                                      Text(
-                                          ' ${obj.subarea}',
-                                          style: const TextStyle(fontWeight: FontWeight.normal, color: Colors.black87)),
-                                    ],
-                                  ),
+                                  _buildRow(CupertinoIcons.cube, obj.subarea),
                                   const SizedBox(height: 8),
-                                  Row(
-                                    children: [
-                                      const Icon(Icons.access_time_sharp, size: 20, color: Color(0xFF2A3EB0)),
-                                      Text(
-                                          ' ${obj.tiempo}',
-                                          style: const TextStyle(fontWeight: FontWeight.normal, color: Colors.black87)),
-                                    ],
-                                  ),
+                                  _buildRow(Icons.access_time_sharp, obj.tiempo),
                                   const SizedBox(height: 8),
-                                  Row(
-                                    children: [
-                                      const Icon(Icons.bookmark_border, size: 20, color: Color(0xFF2A3EB0)),
-                                      Text(
-                                          ' ${obj.oficio}',
-                                          style: const TextStyle(fontWeight: FontWeight.normal, color: Colors.black87)),
-                                    ],
-                                  ),
+                                  _buildRow(Icons.bookmark_border, obj.oficio),
                                   const SizedBox(height: 8),
-                                  Row(
-                                    children: [
-                                      const Icon(Icons.person_2_outlined, size: 20, color: Color(0xFF2A3EB0)),
-                                      Text(
-                                          ' ${obj.disponibilidad}',
-                                          style: const TextStyle(fontWeight: FontWeight.normal, color: Colors.black87)),
-                                    ],
-                                  ),
-                                ]
+                                  _buildRow(Icons.person_2_outlined,
+                                      obj.disponibilidad),
+                                ],
+                              ),
                             ),
                             Container(
-                              margin: const EdgeInsets.only(top: 20, bottom: 20),
+                              margin: const EdgeInsets.symmetric(vertical: 20),
                               child: Center(
                                 child: ElevatedButton.icon(
                                   onPressed: () {
                                     // TODO: Acción al presionar el botón
                                   },
-                                  icon: const Icon(Icons.done_all, color: Colors.white,),
+                                  icon: const Icon(
+                                    Icons.done_all,
+                                    color: Colors.white,
+                                  ),
                                   label: const Text(
-                                      'Postular',
-                                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFFF1EAEA))
+                                    'Postular',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: const Color(0xFF2A3EB0),
                                     elevation: 7,
-                                    padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 8),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 40,
+                                        vertical:
+                                            12), // Aumenta el valor horizontal para hacer el botón más largo
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                    ),
                                   ),
                                 ),
-                              ) ,
+                              ),
                             ),
                           ],
-                        )
+                        ))
+                      ],
                     )
-                  ],
-                )
-              ]
+                  ]),
+                ),
+              ));
+  }
+}
+
+class _TopPortion extends StatelessWidget {
+  const _TopPortion({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      constraints: BoxConstraints(
+          minHeight: 100, maxHeight: 200), // Establece una altura mínima
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          Container(
+            margin: const EdgeInsets.only(bottom: 50),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+                colors: [
+                  Color.fromARGB(255, 149, 198, 221),
+                  Color.fromARGB(255, 72, 127, 153),
+                ],
+              ),
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(50),
+                bottomRight: Radius.circular(50),
+              ),
             ),
           ),
-        )
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: SizedBox(
+              width: 150,
+              height: 150,
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(0, 0, 0, 0),
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: AssetImage('assets/images/compania.png')),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
+}
 
+Widget _buildRow(IconData icon, String text) {
+  return Row(
+    children: [
+      Icon(icon,
+          size: 24,
+          color: const Color(0xFF2A3EB0)), // Tamaño del icono ajustado a 24
+      const SizedBox(width: 10), // Espacio entre el icono y el texto
+      Text(
+        text,
+        style: const TextStyle(
+          fontSize: 18, // Tamaño del texto ajustado a 18
+          fontWeight: FontWeight.normal,
+          color: Colors.black87,
+        ),
+      ),
+    ],
+  );
 }

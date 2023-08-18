@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:pasantapp/utils/ImageSignUp.dart';
 import 'package:pasantapp/views/registro/FrmLoginScreen.dart';
+import 'package:pasantapp/views/registro/FrmTecnologias.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -60,6 +61,14 @@ class _ProfileState extends State<Profile> {
         .push(MaterialPageRoute(builder: (ctx) => LoginScreen()));
   }
 
+  void _abrirNuevaPagina(BuildContext context) {
+    // Aquí puedes colocar la navegación a la nueva página
+    // Por ejemplo:
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => FrmTecnologias(),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Map<String, String>>(
@@ -80,16 +89,20 @@ class _ProfileState extends State<Profile> {
 
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: Color.fromARGB(255, 234, 230, 219),
-            title: const Text('Selecciona una categoría'),
-            elevation: 5,
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.exit_to_app),
-                onPressed: () => _cerrarSesion(context),
-              ),
-            ],
+        backgroundColor: Color.fromARGB(255, 72, 127, 153),
+        title: const Text(''),
+        elevation: 1,
+        leading: IconButton(
+          icon: Icon(Icons.paste_rounded), // Cambia el icono por el que desees
+          onPressed: () => _abrirNuevaPagina(context),
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () => _cerrarSesion(context),
           ),
+        ],
+      ),
           body: SingleChildScrollView(
             child: Column(
               children: [
@@ -114,7 +127,7 @@ class _ProfileState extends State<Profile> {
                             onPressed: () {},
                             heroTag: 'follow',
                             elevation: 0,
-                            backgroundColor: Color.fromARGB(255, 148, 186, 221),
+                            backgroundColor: Color.fromARGB(255, 82, 61, 118),
                             label: const Text("GitHub"),
                             icon: const Icon(Icons.g_mobiledata_outlined),
                           ),
@@ -138,16 +151,16 @@ class _ProfileState extends State<Profile> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.person,
                                 color: Colors.grey,
                                 size: 20,
                               ),
-                              SizedBox(width: 8),
+                              const SizedBox(width: 8),
                               Text(
                                 "Usuario: $username",
                                 style:
-                                    TextStyle(fontSize: 18, color: Colors.grey),
+                                    const TextStyle(fontSize: 18, color: Colors.grey),
                               ),
                             ],
                           ),
@@ -155,16 +168,16 @@ class _ProfileState extends State<Profile> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.card_membership,
                                 color: Colors.grey,
                                 size: 20,
                               ),
-                              SizedBox(width: 8),
+                              const SizedBox(width: 8),
                               Text(
                                 "ID: $userId",
                                 style:
-                                    TextStyle(fontSize: 18, color: Colors.grey),
+                                    const TextStyle(fontSize: 18, color: Colors.grey),
                               ),
                             ],
                           ),
@@ -172,16 +185,16 @@ class _ProfileState extends State<Profile> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.email,
                                 color: Colors.grey,
                                 size: 20,
                               ),
-                              SizedBox(width: 8),
+                              const SizedBox(width: 8),
                               Text(
-                                "$correo",
+                                correo,
                                 style:
-                                    TextStyle(fontSize: 18, color: Colors.grey),
+                                    const TextStyle(fontSize: 18, color: Colors.grey),
                               ),
                             ],
                           ),
@@ -189,16 +202,16 @@ class _ProfileState extends State<Profile> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.cake,
                                 color: Colors.grey,
                                 size: 20,
                               ),
-                              SizedBox(width: 8),
+                              const SizedBox(width: 8),
                               Text(
-                                "$nacimiento",
+                                nacimiento,
                                 style:
-                                    TextStyle(fontSize: 18, color: Colors.grey),
+                                    const TextStyle(fontSize: 18, color: Colors.grey),
                               ),
                             ],
                           ),
@@ -206,16 +219,16 @@ class _ProfileState extends State<Profile> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.book,
                                 color: Colors.grey,
                                 size: 20,
                               ),
-                              SizedBox(width: 8),
+                              const SizedBox(width: 8),
                               Text(
                                 "${pasantiaInfo['carrera']}",
                                 style:
-                                    TextStyle(fontSize: 18, color: Colors.grey),
+                                    const TextStyle(fontSize: 18, color: Colors.grey),
                               ),
                             ],
                           ),
@@ -359,8 +372,8 @@ class _TopPortion extends StatelessWidget {
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,
                 colors: [
-                  Color.fromARGB(255, 202, 64, 227),
-                  Color.fromARGB(255, 230, 197, 236),
+                  Color.fromARGB(255, 149, 198, 221),
+                  Color.fromARGB(255, 72, 127, 153),
                 ],
               ),
               borderRadius: BorderRadius.only(

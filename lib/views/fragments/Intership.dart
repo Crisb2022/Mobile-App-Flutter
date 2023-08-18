@@ -10,6 +10,11 @@ class Intership extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          backgroundColor:  Colors.orange,
+          title: const Center(child:  Text('Multitrabajos', textAlign: TextAlign.center)),
+          elevation: 0,
+        ),
       body: Center(
         child: Container(
           constraints: const BoxConstraints(maxWidth: 400),

@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
           WelcomeScreen.routeName: (context) => WelcomeScreen(),
           SignupEstudiante.routeName: (context) => SignupEstudiante(),
           LoginScreen.routeName: (context) => LoginScreen(),
-          FrmPerfilEstudiantes.routeName: (context) => FrmPerfilEstudiantes(),
+          FrmTecnologias.routeName: (context) => FrmTecnologias(),
           FrmIntroduccion.routeName: (context) => FrmIntroduccion(
             pages: [
               // Aquí debes definir las páginas para la introducción
