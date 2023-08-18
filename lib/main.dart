@@ -41,17 +41,24 @@ class MyApp extends StatelessWidget {
             pages: [
               // Aquí debes definir las páginas para la introducción
               OnboardingPageModel(
-                title: "Título 1",
-                description: "Descripción 1",
-                image: "assets/images/bd.webp",
-                bgColor: Colors.blue,
+                title: "Chat-GPT",
+                description: "Responde tus inquietudes",
+                image: "assets/images/tile_1.png",
+                bgColor: const Color(0xFF1d447b),
                 textColor: Colors.white,
               ),
               OnboardingPageModel(
-                title: "Título 2",
-                description: "Descripción 2",
-                image: "assets/images/analista.webp",
-                bgColor: Colors.red,
+                title: "Al día",
+                description: "Pasantías actualizadas al momento",
+                image: "assets/images/tile_2.png",
+                bgColor: const Color(0xFF2A3EB0),
+                textColor: Colors.white,
+              ),
+              OnboardingPageModel(
+                title: "De estudiantes",
+                description: "Para estudiantes",
+                image: "assets/images/tile_3.png",
+                bgColor: const Color.fromARGB(255, 50, 114, 205),
                 textColor: Colors.white,
               ),
             ],

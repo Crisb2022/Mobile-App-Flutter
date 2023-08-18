@@ -41,7 +41,7 @@ class _FeedHomeState extends State<FeedHome> {
         .toList();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(188, 141, 43, 158), // Cambia el color de fondo
+        backgroundColor: const Color(0xFF2A3EB0), // Cambia el color de fondo
         elevation: 5,
         centerTitle: true, // Centra el título en la AppBar
         title: const Text(
@@ -107,7 +107,7 @@ class _FeedHomeState extends State<FeedHome> {
                               pasantia['empresa'] ?? '',
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Color.fromARGB(255, 132, 97, 160),
+                                color:  Color(0xFF2A3EB0),
                                 fontSize: 20,
                               ),
                               maxLines: 2,
@@ -119,7 +119,7 @@ class _FeedHomeState extends State<FeedHome> {
                                 const Icon(Icons.person),
                                 const SizedBox(width: 8),
                                 Text(
-                                  "Cargo: ${pasantia['imagen']}",
+                                  "Cargo: ${pasantia['cargo']}",
                                   style: Theme.of(context).textTheme.bodyLarge,
                                 ),
                               ],

@@ -89,20 +89,21 @@ class _ProfileState extends State<Profile> {
 
         return Scaffold(
           appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 72, 127, 153),
-        title: const Text(''),
-        elevation: 1,
-        leading: IconButton(
-          icon: Icon(Icons.paste_rounded), // Cambia el icono por el que desees
-          onPressed: () => _abrirNuevaPagina(context),
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.exit_to_app),
-            onPressed: () => _cerrarSesion(context),
+            backgroundColor: Colors.blue,
+            title: const Text(''),
+            elevation: 0,
+            leading: IconButton(
+              icon: const Icon(
+                  Icons.paste_rounded), // Cambia el icono por el que desees
+              onPressed: () => _abrirNuevaPagina(context),
+            ),
+            actions: [
+              IconButton(
+                icon: Icon(Icons.exit_to_app),
+                onPressed: () => _cerrarSesion(context),
+              ),
+            ],
           ),
-        ],
-      ),
           body: SingleChildScrollView(
             child: Column(
               children: [
@@ -153,14 +154,14 @@ class _ProfileState extends State<Profile> {
                             children: [
                               const Icon(
                                 Icons.person,
-                                color: Colors.grey,
+                                color: Colors.blue,
                                 size: 20,
                               ),
                               const SizedBox(width: 8),
                               Text(
                                 "Usuario: $username",
-                                style:
-                                    const TextStyle(fontSize: 18, color: Colors.grey),
+                                style: const TextStyle(
+                                    fontSize: 18, color: Colors.grey),
                               ),
                             ],
                           ),
@@ -170,14 +171,14 @@ class _ProfileState extends State<Profile> {
                             children: [
                               const Icon(
                                 Icons.card_membership,
-                                color: Colors.grey,
+                                color: Colors.blue,
                                 size: 20,
                               ),
                               const SizedBox(width: 8),
                               Text(
                                 "ID: $userId",
-                                style:
-                                    const TextStyle(fontSize: 18, color: Colors.grey),
+                                style: const TextStyle(
+                                    fontSize: 18, color: Colors.grey),
                               ),
                             ],
                           ),
@@ -187,14 +188,14 @@ class _ProfileState extends State<Profile> {
                             children: [
                               const Icon(
                                 Icons.email,
-                                color: Colors.grey,
+                                color: Colors.blue,
                                 size: 20,
                               ),
                               const SizedBox(width: 8),
                               Text(
                                 correo,
-                                style:
-                                    const TextStyle(fontSize: 18, color: Colors.grey),
+                                style: const TextStyle(
+                                    fontSize: 18, color: Colors.grey),
                               ),
                             ],
                           ),
@@ -204,82 +205,110 @@ class _ProfileState extends State<Profile> {
                             children: [
                               const Icon(
                                 Icons.cake,
-                                color: Colors.grey,
+                                color: Colors.blue,
                                 size: 20,
                               ),
                               const SizedBox(width: 8),
                               Text(
                                 nacimiento,
-                                style:
-                                    const TextStyle(fontSize: 18, color: Colors.grey),
+                                style: const TextStyle(
+                                    fontSize: 18, color: Colors.grey),
                               ),
                             ],
                           ),
                           const SizedBox(height: 16),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const Icon(
-                                Icons.book,
-                                color: Colors.grey,
-                                size: 20,
-                              ),
-                              const SizedBox(width: 8),
-                              Text(
-                                "${pasantiaInfo['carrera']}",
-                                style:
-                                    const TextStyle(fontSize: 18, color: Colors.grey),
-                              ),
-                            ],
+                          const Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                     SizedBox(width: 8),
+                                    Flexible(
+                                      child: Text(
+                                        "¿Quién soy?",
+                                        style:  TextStyle(
+                                            fontSize: 20, color: Colors.blue),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                          const SizedBox(height: 20),
+                          Padding(
+                            padding: const EdgeInsets.all(0.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const Icon(
+                                      Icons.book,
+                                      color: Colors.blue,
+                                      size: 20,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Flexible(
+                                      child: Text(
+                                        "${pasantiaInfo['carrera']}",
+                                        style: const TextStyle(
+                                            fontSize: 18, color: Colors.grey),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 16),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const Icon(
+                                      Icons.work,
+                                      color: Colors.blue,
+                                      size: 20,
+                                    ),
+                                    SizedBox(width: 8),
+                                    Flexible(
+                                      child: Text(
+                                        "${pasantiaInfo['objetivo']}",
+                                        style: TextStyle(
+                                            fontSize: 18, color: Colors.grey),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 16),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const Icon(
+                                      Icons.people,
+                                      color: Colors.blue,
+                                      size: 20,
+                                    ),
+                                    SizedBox(width: 8),
+                                    Flexible(
+                                      child: Text(
+                                        "${pasantiaInfo['vision']}",
+                                        style: TextStyle(
+                                            fontSize: 18, color: Colors.grey),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                           const SizedBox(height: 16),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Icon(
-                                Icons.work,
-                                color: Colors.grey,
-                                size: 20,
-                              ),
-                              SizedBox(width: 8),
-                              Text(
-                                "${pasantiaInfo['objetivo']}",
-                                style:
-                                    TextStyle(fontSize: 18, color: Colors.grey),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Icon(
-                                Icons.people,
-                                color: Colors.grey,
-                                size: 20,
-                              ),
-                              SizedBox(width: 8),
-                              Text(
-                                "${pasantiaInfo['vision']}",
-                                style:
-                                    TextStyle(fontSize: 18, color: Colors.grey),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 16),
                           ElevatedButton(
                             onPressed: () {
                               // Agrega aquí la lógica para mostrar el C.V
                             },
                             style: ElevatedButton.styleFrom(
-                              primary: Colors.green,
-                              onPrimary: Colors.white,
-                              textStyle: TextStyle(
+                              backgroundColor: Colors.green,
+                              foregroundColor: Colors.white,
+                              textStyle: const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 12),
                             ),
-                            child: Text("Ver C.V"),
+                            child: const Text("Ver C.V"),
                           ),
                         ],
                       ),
@@ -299,9 +328,9 @@ class _ProfileInfoRow extends StatelessWidget {
   const _ProfileInfoRow({Key? key}) : super(key: key);
 
   final List<ProfileInfoItem> _items = const [
-    ProfileInfoItem("Posts", 900),
-    ProfileInfoItem("Followers", 120),
-    ProfileInfoItem("Following", 200),
+    ProfileInfoItem("Efectivo", "90%"),
+    ProfileInfoItem("Perezoso", "5%"),
+    ProfileInfoItem("Distraido", "5%"),
   ];
 
   @override
@@ -348,7 +377,7 @@ class _ProfileInfoRow extends StatelessWidget {
 
 class ProfileInfoItem {
   final String title;
-  final int value;
+  final String value;
   const ProfileInfoItem(this.title, this.value);
 }
 
@@ -372,8 +401,8 @@ class _TopPortion extends StatelessWidget {
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,
                 colors: [
-                  Color.fromARGB(255, 149, 198, 221),
-                  Color.fromARGB(255, 72, 127, 153),
+                  Color.fromARGB(255, 160, 212, 255),
+                  Colors.blue,
                 ],
               ),
               borderRadius: BorderRadius.only(

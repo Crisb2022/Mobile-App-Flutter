@@ -70,7 +70,7 @@ class _ChatGPTState extends State<ChatGPT> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.red,
+          backgroundColor: const Color(0xFF1d447b),
           title:  const Center(child: Text('OpenAI', textAlign: TextAlign.center)),
           elevation: 0,
         ),

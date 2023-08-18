@@ -11,7 +11,7 @@ class Intership extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor:  Colors.orange,
+          backgroundColor:  const Color(0xFF2a61b0),
           title: const Center(child:  Text('Multitrabajos', textAlign: TextAlign.center)),
           elevation: 0,
         ),

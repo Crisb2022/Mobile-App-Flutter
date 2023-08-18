@@ -69,22 +69,22 @@ class _FrmBottomMenuBarState extends State<FrmBottomMenuBar> {
 final _navBarItems = [
   SalomonBottomBarItem(
     icon: const Icon(Icons.home),
-    title: const Text("Home"),
-    selectedColor: Colors.purple,
+    title: const Text("Pasantías"),
+    selectedColor: const Color(0xFF2A3EB0),
   ),
   SalomonBottomBarItem(
     icon: const Icon(Icons.message),
     title: const Text("OpenAI"),
-    selectedColor: Colors.pink,
+    selectedColor: const Color(0xFF1d447b),
   ),
   SalomonBottomBarItem(
     icon: const Icon(Icons.wallet_travel_outlined),
     title: const Text("Scraping"),
-    selectedColor: Colors.orange,
+    selectedColor: const Color(0xFF2a61b0),
   ),
   SalomonBottomBarItem(
     icon: const Icon(Icons.person),
-    title: const Text("Profile"),
-    selectedColor: Colors.teal,
+    title: const Text("Perfil"),
+    selectedColor: Colors.blue,
   ),
 ];

@@ -57,4 +57,8 @@ flutter:
     - assets/images/web.webp
     - assets/images/login.webp
     - assets/images/compania.png
+    - assets/images/tile_1.png
+    - assets/images/tile_2.png
+    - assets/images/tile_3.png
+    - assets/images/welcome.jpg
     

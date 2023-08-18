@@ -74,7 +74,7 @@ class _FrmIntroduccionState extends State<FrmIntroduccion> {
                                 child: Text(_item.title,
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline6
+                                        .titleLarge
                                         ?.copyWith(
                                           fontWeight: FontWeight.bold,
                                           color: _item.textColor,
@@ -88,7 +88,7 @@ class _FrmIntroduccionState extends State<FrmIntroduccion> {
                                     textAlign: TextAlign.center,
                                     style: Theme.of(context)
                                         .textTheme
-                                        .bodyText2
+                                        .bodyLarge
                                         ?.copyWith(
                                           color: _item.textColor,
                                         )),
@@ -130,13 +130,14 @@ class _FrmIntroduccionState extends State<FrmIntroduccion> {
           .push(MaterialPageRoute(builder: (ctx) => WelcomeScreen()));
                         },
                         child: const Text(
-                          "Avanzar",
+                          "Saltar",
                           style: TextStyle(color: Colors.white),
                         )),
                     TextButton(
                       onPressed: () {
                         if (_currentPage == widget.pages.length - 1) {
-                          // This is the last page
+                          Navigator.of(context)
+          .push(MaterialPageRoute(builder: (ctx) => WelcomeScreen()));
                         } else {
                           _pageController.animateToPage(_currentPage + 1,
                               curve: Curves.easeInOutCubic,
@@ -145,8 +146,8 @@ class _FrmIntroduccionState extends State<FrmIntroduccion> {
                       },
                       child: Text(
                         _currentPage == widget.pages.length - 1
-                            ? "Finish"
-                            : "Next",
+                            ? "LogIn"
+                            : "Siguiente",
                         style: const TextStyle(color: Colors.white),
                       ),
                     ),

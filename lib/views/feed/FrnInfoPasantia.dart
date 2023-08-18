@@ -62,7 +62,7 @@ class _FrmInfoPasantiaState extends State<FrmInfoPasantia> {
         decoration: BoxDecoration(
           image: DecorationImage(
             alignment: Alignment.topCenter,
-            fit: BoxFit.contain,
+            fit: BoxFit.fitWidth,
             image: AssetImage(
               'assets/images/${widget.pasantia['imagen']}.webp',
             ),
@@ -73,7 +73,7 @@ class _FrmInfoPasantiaState extends State<FrmInfoPasantia> {
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 300),
+                  padding: const EdgeInsets.only(top: 200),
                   child: Container(
                     width: double.infinity,
                     decoration: const BoxDecoration(
@@ -94,7 +94,7 @@ class _FrmInfoPasantiaState extends State<FrmInfoPasantia> {
                             child: const CircleAvatar(
                               radius: 100,
                               backgroundImage: AssetImage(
-                                'assets/images/startApp.jpg',
+                                'assets/images/compania.png',
                               ), // Cambia la imagen de perfil
                             ),
                           ),
@@ -118,8 +118,10 @@ class _FrmInfoPasantiaState extends State<FrmInfoPasantia> {
                               FloatingActionButton.extended(
                                 onPressed: () async {
                                   final email = '${pasantiaInfo['correo']}';
-                                  const subject = 'Pasantias Pre Profesionales publicadas en PassApp';
-                                  final body = 'Saludos mi nombre es $username y estoy interesado en realizar precticas Pre-Profesionales en su empresa ...';
+                                  const subject =
+                                      'Pasantias Pre Profesionales publicadas en PassApp';
+                                  final body =
+                                      'Saludos mi nombre es $username y estoy interesado en realizar precticas Pre-Profesionales en su empresa ...';
 
                                   final uri = Uri(
                                     scheme: 'mailto',
@@ -283,7 +285,7 @@ class _FrmInfoPasantiaState extends State<FrmInfoPasantia> {
                                         context);
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.purple,
+                                backgroundColor: const Color(0xFF2A3EB0),
                                 disabledForegroundColor: Colors.white,
                                 textStyle: const TextStyle(fontSize: 20),
                                 shape: RoundedRectangleBorder(

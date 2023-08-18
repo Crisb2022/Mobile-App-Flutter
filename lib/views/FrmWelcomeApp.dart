@@ -11,8 +11,8 @@ class WelcomeScreen extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage('assets/images/startApp.jpg'),
-                  fit: BoxFit.fill),
+                  image: AssetImage('assets/images/welcome.jpg'),
+                  fit: BoxFit.cover),
             ),
           ),
           Column(
@@ -21,20 +21,20 @@ class WelcomeScreen extends StatelessWidget {
               const Expanded(
                 flex: 6,
                 child: Padding(
-                  padding: EdgeInsets.only(top: 60, left: 25),
+                  padding: EdgeInsets.only(top: 120, left: 35),
                   child: Column(
                     children: [
                       Text(
-                        'Hello',
+                        'PasPapp',
                         style: TextStyle(
-                            fontSize: 55,
+                            fontSize: 80,
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
                       ),
                       Text(
-                        'Lorem ipsum dolor sit amet',
+                        'Marca tu futuro',
                         style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 30,
                             fontStyle: FontStyle.italic,
                             color: Colors.white),
                       ),

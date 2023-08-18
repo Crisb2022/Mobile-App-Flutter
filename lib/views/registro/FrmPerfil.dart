@@ -93,7 +93,7 @@ class _FrmPerfilState extends State<FrmPerfil> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 80.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -119,9 +119,9 @@ class _FrmPerfilState extends State<FrmPerfil> {
             ), // Make it multiline
             const SizedBox(height: 30),
             buildElevatedButton(
-              'Subir Archivo PDF',
+              'Subir C.V',
               _pickPDF,
-              backgroundColor: Colors.amber,
+              backgroundColor: const Color(0xFF2a61b0),
             ),
             if (filePath != null)
               Padding(
@@ -130,13 +130,13 @@ class _FrmPerfilState extends State<FrmPerfil> {
               ),
             const SizedBox(height: 30),
             buildElevatedButton(
-              'Enviar Perfil',
+              'Crear Perfil',
               () {
                 Provider.of<EstudiantesServices>(context, listen: false)
                     .signupPerfil(widget.cedula, visionController.text,
                         carreraController.text, objetivoController.text,'999', context);
               },
-              backgroundColor: Colors.amber,
+              backgroundColor: const Color(0xFF1d447b),
               icon: Icons.send,
             ),
             const SizedBox(height: 40),

@@ -118,7 +118,7 @@ class _SignupEstudianteState extends State<SignupEstudiante> {
                                 style: TextStyle(
                                     fontSize: 40,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.brown),
+                                    color: Color(0xFF1d587b)),
                               ),
                             ],
                           ),
@@ -166,7 +166,7 @@ class _SignupEstudianteState extends State<SignupEstudiante> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(25)),
                                 backgroundColor:
-                                    const Color.fromARGB(255, 142, 203, 214),
+                                    const Color(0xFF1d587b),
                               ),
                               child: const Text(
                                 'Foto de perfil',
@@ -211,10 +211,10 @@ class _SignupEstudianteState extends State<SignupEstudiante> {
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(25)),
-                                backgroundColor: Colors.amber,
+                                backgroundColor: const Color(0xFF1d447b),
                               ),
                               child: const Text(
-                                'Sign up',
+                                'Crear usuario',
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w700,

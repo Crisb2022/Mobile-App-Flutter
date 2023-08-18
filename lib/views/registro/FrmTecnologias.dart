@@ -38,11 +38,43 @@ class _FrmTecnologiasState extends State<FrmTecnologias> {
   }
 
   void mostrarTecnologiasSeleccionadas() {
-    print("Tecnologías seleccionadas:");
-    for (String tecnologia in tecnologiasSeleccionadas) {
-      print(tecnologia);
-    }
-  }
+  showModalBottomSheet(
+    context: context,
+    builder: (BuildContext context) {
+      return Container(
+        height: 400,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                "Tecnologías seleccionadas:",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: tecnologiasSeleccionadas.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    title: Text(tecnologiasSeleccionadas[index]),
+                  );
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                "Tecnologías seleccionadas: ${tecnologiasSeleccionadas.join(', ')}",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
 
   @override
   void initState() {
@@ -54,7 +86,7 @@ class _FrmTecnologiasState extends State<FrmTecnologias> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lista de Tecnologías'),
+        title: const Text('Habilidades'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

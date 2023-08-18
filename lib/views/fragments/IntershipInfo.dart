@@ -47,7 +47,7 @@ class _IntershipInfoState extends State<IntershipInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 72, 127, 153),
+          backgroundColor: const Color(0xFF2a61b0),
           title: const Text('Multitrabajos', textAlign: TextAlign.center),
           elevation: 0,
         ),
@@ -227,8 +227,8 @@ class _TopPortion extends StatelessWidget {
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,
                 colors: [
-                  Color.fromARGB(255, 149, 198, 221),
-                  Color.fromARGB(255, 72, 127, 153),
+                  Color.fromARGB(255, 146, 186, 242),
+                   Color(0xFF2a61b0),
                 ],
               ),
               borderRadius: BorderRadius.only(
